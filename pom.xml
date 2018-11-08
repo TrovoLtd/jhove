@@ -46,6 +46,7 @@
     <module>jhove-ext-modules</module>
     <module>jhove-apps</module>
     <module>jhove-installer</module>
+    <module>jhove-integration-tests</module>
   </modules>
 
   <scm>
