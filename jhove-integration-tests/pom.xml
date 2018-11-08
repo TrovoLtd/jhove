@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jhove-integration-tests</artifactId>
-    <version>DPOC_Refactor</version>
+    <version>1.20-RC.0</version>
 
     <build>
         <plugins>
@@ -27,6 +27,40 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--
+                The below is a bit of a hacky Ant task to copy the jhove-apps.jar from the
+                apps module, and copy it over to integration tests with a consistent name.
+
+                Someone with a better knowledge of how nested modules in Maven projects work
+                could do a much better job of this.
+             -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${mvn.antrun.version}</version>
+                <executions>
+                    <execution>
+                        <id>pull-jar-for-integration-tests</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target name="copy latest app.jar for integration tests">
+                                <property name="main.basedir" location="./.." />
+                                <delete file="${main.basedir}/jhove-integration-tests/src/test/resources/jhove-apps-it.jar" />
+                                <copy file="${main.basedir}/jhove-apps/target/jhove-apps-${project.version}.jar"
+                                      tofile="${main.basedir}/jhove-integration-tests/src/test/resources/jhove-apps-it.jar" />
+                            </target>
+                        </configuration>
+                    </execution>
+
+                </executions>
+
+            </plugin>
+
         </plugins>
     </build>
 
