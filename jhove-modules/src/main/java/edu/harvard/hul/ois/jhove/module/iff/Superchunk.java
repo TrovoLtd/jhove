@@ -20,7 +20,7 @@ import java.io.*;
  */
 public abstract class Superchunk extends Chunk {
 
-    private RepInfo _repInfo;
+    private IRepInfo _I_repInfo;
     
     /**
      * Constructor.
@@ -33,10 +33,10 @@ public abstract class Superchunk extends Chunk {
     public Superchunk (ModuleBase module,
             ChunkHeader hdr, 
             DataInputStream dstrm,
-            RepInfo info)
+            IRepInfo info)
     {
         super (module, hdr, dstrm);
-	_repInfo = info;
+	_I_repInfo = info;
     }
     
     /**
@@ -50,7 +50,7 @@ public abstract class Superchunk extends Chunk {
             return null;
         }
        Chunk chunk = null;
-       ChunkHeader chunkh = new ChunkHeader (_module, _repInfo);
+       ChunkHeader chunkh = new ChunkHeader (_module, _I_repInfo);
        if (!chunkh.readHeader(_dstream)) {
            return null;
        }

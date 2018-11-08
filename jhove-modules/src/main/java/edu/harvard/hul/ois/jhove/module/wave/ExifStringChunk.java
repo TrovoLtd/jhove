@@ -44,7 +44,7 @@ public class ExifStringChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         byte[] buf = new byte[(int) bytesLeft];
         ModuleBase.readByteBuf (_dstream, buf, module);

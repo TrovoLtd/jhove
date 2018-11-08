@@ -45,7 +45,7 @@ public class ContCodestreamBox extends JP2Box {
         
         // Must come after the JP2 header
         if (!_module.isJP2HdrSeen()) {
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                 (noJP2Hdr, _module.getFilePos ()));
             return false;
         }
@@ -57,7 +57,7 @@ public class ContCodestreamBox extends JP2Box {
             0 : _boxHeader.getDataLength ();
         ContCodestream ccs = 
             new ContCodestream (_module, _dstrm, len);    
-        boolean retval = ccs.readCodestream (curCodestream, _repInfo);                
+        boolean retval = ccs.readCodestream (curCodestream, _I_repInfo);
         finalizeBytesRead ();
         return retval;
     }

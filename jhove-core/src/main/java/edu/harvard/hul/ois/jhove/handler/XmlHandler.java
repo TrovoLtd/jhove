@@ -316,7 +316,7 @@ public class XmlHandler
     /**
      *  Outputs the information contained in a RepInfo object
      */
-    public void show (RepInfo info)
+    public void show (IRepInfo info)
     {
         String margin = getIndent (++_level);
         String margn2 = margin + " ";
@@ -367,11 +367,11 @@ public class XmlHandler
         String wfStr;
         if (!_je.getSignatureFlag ()) {
             switch (info.getWellFormed ()) {
-                case RepInfo.TRUE:
+                case IRepInfo.TRUE:
                 wfStr = "Well-Formed";
                 break;
 
-                case RepInfo.FALSE:
+                case IRepInfo.FALSE:
                 wfStr = "Not well-formed";
                 break;
 
@@ -380,13 +380,13 @@ public class XmlHandler
                 break;
             }
             // If it's well-formed, append validity information
-            if (info.getWellFormed () == RepInfo.TRUE) {
+            if (info.getWellFormed () == IRepInfo.TRUE) {
                 switch (info.getValid ()) {
-                    case RepInfo.TRUE:
+                    case IRepInfo.TRUE:
                     wfStr += " and valid";
                     break;
 
-                    case RepInfo.FALSE:
+                    case IRepInfo.FALSE:
                     wfStr += ", but not valid";
                     break;
 
@@ -399,7 +399,7 @@ public class XmlHandler
         else {
 //          If we aren't checking signatures, we still need to say something.
             switch (info.getWellFormed ()) {
-                case RepInfo.TRUE:
+                case IRepInfo.TRUE:
                     wfStr = "Well-Formed";
                     break;
 

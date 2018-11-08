@@ -40,7 +40,7 @@ public class MarkerChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         AiffModule module = (AiffModule) _module;
         int numMarkers = module.readUnsignedShort (_dstream);
         if (numMarkers == 0) {

@@ -1,10 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.Rational;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The gAMA chunk, holding the gamma value.
  * (And I can't think why!)
@@ -21,7 +17,7 @@ public class GamaChunk extends PNGChunk {
 		duplicateAllowed = false;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		final String badChunk = "Bad gAMA chunk";
 		if (_module.isPlteSeen() || _module.isIdatSeen()) {

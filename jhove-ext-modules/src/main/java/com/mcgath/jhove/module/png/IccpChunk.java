@@ -1,9 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The iCCP (color profile) chunk */
 public class IccpChunk extends PNGChunk {
@@ -16,7 +13,7 @@ public class IccpChunk extends PNGChunk {
 		duplicateAllowed = false;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad iCCP chunk";
 		processChunkCommon(info);
 		

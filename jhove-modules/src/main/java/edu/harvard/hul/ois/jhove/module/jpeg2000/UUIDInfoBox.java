@@ -61,7 +61,7 @@ public class UUIDInfoBox extends JP2Box {
                     box.setBoxHeader(subhdr);
                     box.setDataInputStream(_dstrm);
                     box.setRandomAccessFile (_raf);
-                    box.setRepInfo(_repInfo);
+                    box.setRepInfo(_I_repInfo);
                     box.setModule(_module);
                     if (!box.readBox ()) {
                         return false;
@@ -75,10 +75,10 @@ public class UUIDInfoBox extends JP2Box {
         // not be any bytes left over.
         if (sizeLeft != 0) {
             // Underran the superbox -- get out quick
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_UUID_INFO_BOX_UNDERRUN, 
                  _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
             
         }

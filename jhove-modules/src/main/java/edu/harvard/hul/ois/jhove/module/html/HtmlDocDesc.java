@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import edu.harvard.hul.ois.jhove.module.Utf8BlockMarker;
 
 
@@ -73,7 +73,7 @@ public abstract class HtmlDocDesc {
      *  @param  info        The RepInfo object which will be populated
      *                      with properties
      */
-    public boolean validate (List elements, RepInfo info) {
+    public boolean validate (List elements, IRepInfo info) {
         // As we get to each open tag, we
         // check it against the corresponding HtmlTagDesc.  If there isn't one, we
         // mark the document as invalid but continue anyway; we create a temporary
@@ -142,7 +142,7 @@ public abstract class HtmlDocDesc {
 
 
     /* Break out open tag code */
-    private void doOpenTag (JHOpenTag tag, RepInfo info)
+    private void doOpenTag (JHOpenTag tag, IRepInfo info)
     {
         String name = tag.getName ().toLowerCase ();
         boolean unknownTag = false;
@@ -198,7 +198,7 @@ public abstract class HtmlDocDesc {
             // Make a temporary tag descriptor
             tagDesc = new HtmlTempTagDesc (name);
         }
-        if (!unknownTag && info.getWellFormed() == RepInfo.TRUE) {
+        if (!unknownTag && info.getWellFormed() == IRepInfo.TRUE) {
             /* Check if the attributes are valid */
             List atts = tag.getAttributes ();
             Iterator iter = atts.iterator ();
@@ -278,7 +278,7 @@ public abstract class HtmlDocDesc {
         }
     }
 
-    private void doCloseTag (JHCloseTag tag, RepInfo info)
+    private void doCloseTag (JHCloseTag tag, IRepInfo info)
     {
         String name = tag.getName ();
         // Dig down into the stack till we find an element which
@@ -300,12 +300,12 @@ public abstract class HtmlDocDesc {
 
     }
 
-    private void doErrorElement (JHErrorElement elem, RepInfo info)
+    private void doErrorElement (JHErrorElement elem, IRepInfo info)
     {
         elem.reportError (info);
     }
 
-    private void doPCData (JHPCData elem, RepInfo info, HtmlMetadata metadata)
+    private void doPCData (JHPCData elem, IRepInfo info, HtmlMetadata metadata)
     {
         // Pop any elements that have optional close tags and do not
         // allow PCDATA.
@@ -350,7 +350,7 @@ public abstract class HtmlDocDesc {
     /* Returns true if the element is permissible at this point.
      * This may pop elements off the stack and push implied tags.
      */
-    private boolean checkElementContext (JHOpenTag elem, RepInfo info)
+    private boolean checkElementContext (JHOpenTag elem, IRepInfo info)
     {
         /* We are guaranteed there's something on the stack
          * unless the tag is "html", but Paranoia Is A Virtue */

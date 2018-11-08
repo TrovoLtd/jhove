@@ -2,11 +2,11 @@ package edu.harvard.hul.ois.jhove.module.pdf;
 
 import java.net.URISyntaxException;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.jhove.JhoveBase;
-import edu.harvard.hul.ois.jhove.RepInfo;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 import edu.harvard.hul.ois.jhove.module.TestUtils;
 
@@ -56,7 +56,7 @@ public class HeaderTests {
 	@Test
 	public final void testMinorVersion() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, minimalPdfPath,
-				RepInfo.TRUE, RepInfo.TRUE, null);
+                IRepInfo.TRUE, IRepInfo.TRUE, null);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class HeaderTests {
 	@Test
 	public final void testInvalidMajorVersion() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, invalidMajorPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}
@@ -81,7 +81,7 @@ public class HeaderTests {
 	@Test
 	public final void testInvalidMinorVersion() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, invalidMinorPath,
-				RepInfo.TRUE, RepInfo.FALSE,
+                IRepInfo.TRUE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_MINOR_INVALID);
 
 	}
@@ -94,7 +94,7 @@ public class HeaderTests {
 	@Test
 	public final void testNoMinor() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noMinorPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}
@@ -107,7 +107,7 @@ public class HeaderTests {
 	@Test
 	public final void testNoheaderDash() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noHeaderDashPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}
@@ -121,7 +121,7 @@ public class HeaderTests {
 	@Test
 	public final void testInvalidSyntaxRep() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, invalidSyntaxRepPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}
@@ -134,7 +134,7 @@ public class HeaderTests {
 	@Test
 	public final void testInvalidSyntaxNoPdf() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, invalidSyntaxNoPdfPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}
@@ -147,7 +147,7 @@ public class HeaderTests {
 	@Test
 	public final void testNoVersionInfo() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noVersionInfoPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PDF_HEADER_MISSING);
 
 	}

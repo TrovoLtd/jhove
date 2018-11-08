@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -28,7 +29,7 @@ public class WarcModuleTest {
         assertTrue( warcFile.isFile() );
         
         WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.parse(new FileInputStream(warcFile), info, 0);
         
         wellFormedCheck(info, wm);
@@ -41,10 +42,10 @@ public class WarcModuleTest {
 	    File warcFile = new File("src/test/resources/warc/valid-warcfile-utf8.warc");
 
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.checkSignatures(null, new FileInputStream(warcFile), info);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
         assertEquals(WarcModule.class, info.getModule().getClass());
         assertEquals(Arrays.asList(wm.getName()), info.getSigMatch());
 	}
@@ -54,7 +55,7 @@ public class WarcModuleTest {
 		File warcFile = new File("src/test/resources/warc/invalid-empty.warc");
 
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.parse(new FileInputStream(warcFile), info, 0);
         
         invalidCheck(info);
@@ -77,10 +78,10 @@ public class WarcModuleTest {
 		File warcFile = new File("src/test/resources/warc/valid-warcfile-upper-lower-case.warc.gz");
 
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.checkSignatures(null, new FileInputStream(warcFile), info);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
         assertEquals(WarcModule.class, info.getModule().getClass());
         assertEquals(Arrays.asList(wm.getName()), info.getSigMatch());
 	}
@@ -97,7 +98,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileContentTypeRecommended() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-contenttype-recommended.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
         
         assertEquals(7, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -109,7 +110,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileContentTypeWarcInfoRecommended() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-contenttype-warcinfo-recommended.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
         
         assertEquals(1, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -121,7 +122,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileDigestField() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-digest-fields.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
      
         assertEquals(8, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -133,7 +134,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileDuplicateField() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-duplicate-fields.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
         
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -145,7 +146,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileFieldsEmpty() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-fields-empty.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
         
         assertEquals(16, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -160,7 +161,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileFieldsInvalidFormat() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-fields-invalidformat.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(15, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -174,7 +175,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileFieldsMissing() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-fields-missing.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(24, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -188,7 +189,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileLonelyContinuation() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-lonely-continuation.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -200,7 +201,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileLonelyMonkeysLfLineEndings() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-lonely-monkeys-lf-line-endings.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -214,7 +215,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileLonelyRequestResponseResourceConversion() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-lonely-request-response-resource-conversion.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(16, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -226,7 +227,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileLonelyRevisit() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-lonely-revisit.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -238,7 +239,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileLonelyWarcInfoMetadata() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-lonely-warcinfo-metadata.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -250,7 +251,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileSegmentNumberContinuation() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-segment-number-continuation.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(1, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -262,7 +263,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcFileSegmentNumberResponse() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcfile-segment-number-response.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -274,7 +275,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy1() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-1.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -288,7 +289,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy2() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-2.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(1, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -300,7 +301,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy3() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-3.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -313,7 +314,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy4() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-4.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -329,7 +330,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy5() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-5.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -342,7 +343,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy6() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-6.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -354,7 +355,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy7() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-7.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(4, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -368,7 +369,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy8() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-8.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -383,7 +384,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy9() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-9.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -396,7 +397,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy10() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-10.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -409,7 +410,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy11() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-11.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -422,7 +423,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy12() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-12.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -435,7 +436,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy13() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-13.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(4, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -449,7 +450,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy14() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-14.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -461,7 +462,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy15() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-15.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -474,7 +475,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy16() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-16.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -486,7 +487,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderFieldPolicy17() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderfieldpolicy-17.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -498,7 +499,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion1() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-1.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -507,7 +508,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion2() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-2.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -520,7 +521,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion3() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-3.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -533,7 +534,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion4() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-4.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -542,7 +543,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion5() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-5.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -551,7 +552,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion6() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-6.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -564,7 +565,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion7() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-7.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -573,7 +574,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion8() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-8.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -582,7 +583,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion9() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-9.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         unknownRequiredInvalidCheck(info);
 	}
@@ -591,7 +592,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion10() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-10.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -602,7 +603,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion11() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-11.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -613,7 +614,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion12() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-12.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -624,7 +625,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion13() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-13.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -635,7 +636,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion14() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-14.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -646,7 +647,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion15() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-15.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -657,7 +658,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion16() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-16.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         invalidErrorExpectedCheck(info);
 	}
@@ -666,7 +667,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion17() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-17.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         invalidErrorExpectedCheck(info);
 	}
@@ -675,7 +676,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion18() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-18.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         invalidErrorExpectedCheck(info);
 	}
@@ -684,7 +685,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion19() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-19.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         invalidErrorExpectedCheck(info);
 	}
@@ -693,7 +694,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion20() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-20.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         invalidErrorExpectedCheck(info);
 	}
@@ -702,7 +703,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion21() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-21.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -715,7 +716,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion22() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-22.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -728,7 +729,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion23() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-23.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -741,7 +742,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion24() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-24.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -755,7 +756,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion25() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-25.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -769,7 +770,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcHeaderVersion26() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcheaderversion-26.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(5, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -782,7 +783,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcReaderDiagnosis1() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcreader-diagnosis-1.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(3, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -795,7 +796,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecord1() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecord-1.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(7, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -811,7 +812,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecord2() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecord-2.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -823,7 +824,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecord3() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecord-3.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(8, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -837,7 +838,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecordDigests1() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecorddigests-1.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(12, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -849,7 +850,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecordDigests2() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecorddigests-2.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(4, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -861,7 +862,7 @@ public class WarcModuleTest {
     public void parseInvalidWarcRecordDigests3() throws Exception {
 		File warcFile = new File("src/test/resources/warc/invalid-warcrecorddigests-3.warc");
 
-		RepInfo info = generalInvalidChecks(warcFile);
+		IRepInfo info = generalInvalidChecks(warcFile);
 
         assertEquals(4, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
@@ -935,7 +936,7 @@ public class WarcModuleTest {
 	/**
 	 * @param info
 	 */
-	private static void unknownRequiredInvalidCheck(RepInfo info) {
+	private static void unknownRequiredInvalidCheck(IRepInfo info) {
 		assertEquals(6, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
         assertEquals(3, messages.size());
@@ -947,7 +948,7 @@ public class WarcModuleTest {
 	/**
 	 * @param info
 	 */
-	private static void invalidErrorExpectedCheck(RepInfo info) {
+	private static void invalidErrorExpectedCheck(IRepInfo info) {
 		assertEquals(2, info.getMessage().size());
         Map<String, Integer> messages = extractMessages(info.getMessage());
         assertEquals(2, messages.size());
@@ -980,11 +981,11 @@ public class WarcModuleTest {
 	 */
 	private static void invalidWithClassCheck(File warcFile) throws IOException, FileNotFoundException {
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.checkSignatures(null, new FileInputStream(warcFile), info);
         
         // The WARC module MUST find WAV files as not well-formed WARC files
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
         assertEquals(WarcModule.class, info.getModule().getClass());
         assertTrue(info.getSigMatch().isEmpty());
 	}
@@ -995,9 +996,9 @@ public class WarcModuleTest {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	private static RepInfo generalInvalidChecks(File warcFile) throws IOException, FileNotFoundException {
+	private static IRepInfo generalInvalidChecks(File warcFile) throws IOException, FileNotFoundException {
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.parse(new RandomAccessFile(warcFile, "r"), info);
         
         invalidCheck(info);
@@ -1011,7 +1012,7 @@ public class WarcModuleTest {
 	 */
 	private static void generalWellFormedChecks(File warcFile) throws IOException, FileNotFoundException {
 		WarcModule wm = new WarcModule();
-        RepInfo info = new RepInfo(warcFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(warcFile.getAbsolutePath());
         wm.parse(new RandomAccessFile(warcFile, "r"), info);
         
         wellFormedCheck(info, wm);
@@ -1022,18 +1023,18 @@ public class WarcModuleTest {
 	 * @param info
 	 * @param wm
 	 */
-	private static void wellFormedCheck(RepInfo info, WarcModule wm) {
-		assertEquals(RepInfo.TRUE, info.getWellFormed());
-        assertEquals(RepInfo.TRUE, info.getValid());
+	private static void wellFormedCheck(IRepInfo info, WarcModule wm) {
+		assertEquals(IRepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getValid());
         assertEquals(Arrays.asList(wm.getName()), info.getSigMatch());
 	}
 
 	/**
 	 * @param info
 	 */
-	private static void invalidCheck(RepInfo info) {
-		assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+	private static void invalidCheck(IRepInfo info) {
+		assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 	}
 

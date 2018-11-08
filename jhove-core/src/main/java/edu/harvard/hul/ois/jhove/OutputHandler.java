@@ -26,7 +26,7 @@ public interface OutputHandler
      * representation information.
      * @param info Object representation information
      */
-    public void analyze (RepInfo info);
+    public void analyze (IRepInfo info);
 
     /**
      * Callback indicating a directory is finished being processed.
@@ -150,7 +150,7 @@ public interface OutputHandler
     /**
      *  Outputs the information contained in a RepInfo object
      */
-    public void show (RepInfo info);
+    public void show (IRepInfo info);
 
     /**
      *  Outputs information about the OutputHandler specified

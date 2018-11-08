@@ -50,7 +50,7 @@ public class PPMMarkerSegment extends MarkerSegment {
             long nppm = _module.readUnsignedInt (_dstream);
             bytesToEat -= 4;
             if (nppm > bytesToEat) {
-                _repInfo.setMessage(new ErrorMessage 
+                _I_repInfo.setMessage(new ErrorMessage
                         (MessageConstants.ERR_PPM_MARKER_TILE_PART_HEADER_SIZE_INVALID));
                 return false;
             }

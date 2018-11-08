@@ -60,7 +60,7 @@ public class CommentMarkerSegment extends MarkerSegment {
             break;
             
             default:
-            _repInfo.setMessage( (new ErrorMessage 
+            _I_repInfo.setMessage( (new ErrorMessage
                     (MessageConstants.ERR_COM_MARKER_TYPE_INVALID)));
             return false;        // other values are reserved
         }

@@ -46,7 +46,7 @@ public class QCCMarkerSegment extends MarkerSegment {
         int compIdxBytes =  nCompBytes();
         if (compIdxBytes == 0) {
             // QCC found before SIZ
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_QCC_MARKER_POSITION_INVALID));
             return false;
         }
@@ -88,7 +88,7 @@ public class QCCMarkerSegment extends MarkerSegment {
             }
             break;
 	default:
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_QCC_MARKER_QUANTIZATION_TYPE_INVALID));
             return false;    // reserved value
         }

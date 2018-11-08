@@ -66,10 +66,10 @@ public class CrossRefBox extends JP2Box {
             box = (JP2Box) next ();
         }
         if (!(box instanceof FragmentListBox)) {
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_CROSS_REF_BOX_FRAGMENT_LIST_BOX_MISSING,
                      _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
         }
         box.readBox ();

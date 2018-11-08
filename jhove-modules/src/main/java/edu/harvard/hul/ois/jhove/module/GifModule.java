@@ -198,7 +198,7 @@ public class GifModule extends ModuleBase
     @Override
     public void checkSignatures (File file,
                 InputStream stream,
-                RepInfo info)
+                IRepInfo info)
         throws IOException
     {
         int[] sigBytes = { 'G', 'I', 'F', '8', '*', 'a' };
@@ -252,7 +252,7 @@ public class GifModule extends ModuleBase
      *                    equal to that return value.
      */
     @Override
-    public int parse (InputStream stream, RepInfo info, int parseIndex)
+    public int parse (InputStream stream, IRepInfo info, int parseIndex)
         throws IOException
     {
         initParse ();
@@ -296,7 +296,7 @@ public class GifModule extends ModuleBase
         boolean moreToCome = true;
         while (moreToCome) {
             moreToCome = readBlock (info);
-            if (info.getWellFormed () == RepInfo.FALSE) {
+            if (info.getWellFormed () == IRepInfo.FALSE) {
                 return 0;
             }
         }
@@ -367,7 +367,7 @@ public class GifModule extends ModuleBase
 
 
     /*   Read the 6-byte signature. */
-    protected boolean readSig (RepInfo info) throws IOException
+    protected boolean readSig (IRepInfo info) throws IOException
     {
         int nbyt = 0;
         while (nbyt < 6) {
@@ -383,7 +383,7 @@ public class GifModule extends ModuleBase
             }
             catch (EOFException e) {
                 info.setMessage(new ErrorMessage (MessageConstants.ERR_GIF_HEADER_INVALID, 0));
-                info.setWellFormed (RepInfo.FALSE);
+                info.setWellFormed (IRepInfo.FALSE);
                 return false;
             }
         }
@@ -398,14 +398,14 @@ public class GifModule extends ModuleBase
         }
         else {
             info.setMessage(new ErrorMessage (MessageConstants.ERR_GIF_HEADER_INVALID, 0));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             return false;
         }
         return true;
     }
 
     /*   Read the Logical Screen Descriptor. */
-    protected boolean readLSD (RepInfo info) throws IOException
+    protected boolean readLSD (IRepInfo info) throws IOException
     {
         Vector propVec = new Vector (8);
         /* GIF data is always little-endian. */
@@ -473,7 +473,7 @@ public class GifModule extends ModuleBase
     /* Read Graphic blocks, Special blocks, and the trailer.
      * Return false if we get an error that prevents further
      * progress, or if we encounter the Trailer. */
-    protected boolean readBlock (RepInfo info) throws IOException
+    protected boolean readBlock (IRepInfo info) throws IOException
     {
         int type;
         try {
@@ -482,7 +482,7 @@ public class GifModule extends ModuleBase
         catch (EOFException e) {
             // The spec isn't fully clear on whether a trailer is
             // required, but seems to imply it is.
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             info.setMessage (new ErrorMessage (
             		MessageConstants.ERR_TRAILER_BLOCK_MISSING, _nByte));
             return false;
@@ -496,7 +496,7 @@ public class GifModule extends ModuleBase
                 case TRAILER:
                     return false;   // end of file
                 default:
-                    info.setWellFormed (RepInfo.FALSE);
+                    info.setWellFormed (IRepInfo.FALSE);
                     info.setMessage (new ErrorMessage
                         (MessageConstants.ERR_BLOCK_TYPE_UNKNOWN,
                          "Type = " + type, _nByte));
@@ -505,7 +505,7 @@ public class GifModule extends ModuleBase
         }
         catch (EOFException e) {
             // An EOF in the middle of a block is definitely a problem
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             info.setMessage (new ErrorMessage
                     (MessageConstants.ERR_UNEXPECTED_END_OF_FILE, _nByte));
             return false;
@@ -514,7 +514,7 @@ public class GifModule extends ModuleBase
 
     /* Read an extension block.
      */
-    protected boolean readExtBlock (RepInfo info) throws IOException
+    protected boolean readExtBlock (IRepInfo info) throws IOException
     {
         int subtype = readUnsignedByte (_dstream, this);
         switch (subtype) {
@@ -527,7 +527,7 @@ public class GifModule extends ModuleBase
             case PLAIN_TEXT_EXT:
                 return readPlainTextExtension (info);
             default:
-                info.setWellFormed (RepInfo.FALSE);
+                info.setWellFormed (IRepInfo.FALSE);
                 info.setMessage (new ErrorMessage
                     (MessageConstants.ERR_EXTENSION_BLOCK_TYPE_UNKNOWN,
                      "Type = " + subtype,
@@ -540,7 +540,7 @@ public class GifModule extends ModuleBase
      * We are positioned just after the type byte of the
      * image descriptor.
      */
-    protected boolean readImage (RepInfo info) throws IOException
+    protected boolean readImage (IRepInfo info) throws IOException
     {
         ++_numGraphicBlocks;
         Vector propVec = new Vector (7);
@@ -615,7 +615,7 @@ public class GifModule extends ModuleBase
 
     /*  Read an application extension block and fill in the appropriate
      *  properties */
-    protected boolean readAppExtension (RepInfo info)
+    protected boolean readAppExtension (IRepInfo info)
             throws IOException
     {
         int blockSize = readUnsignedByte (_dstream, this);
@@ -623,7 +623,7 @@ public class GifModule extends ModuleBase
             info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_APP_EXTENSION_BLOCK_SIZE_INVALID,
                  _nByte));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             return false;
         }
         Vector propVec = new Vector (3);
@@ -682,7 +682,7 @@ public class GifModule extends ModuleBase
      *  properties.  A comment extension should, by recommendation,
      *  contain ASCII, but actually can contain anything.  Nulls
      *  are skipped, but everything else is included as is. */
-    protected boolean readCommentExtension (RepInfo info)
+    protected boolean readCommentExtension (IRepInfo info)
             throws IOException
     {
         StringBuffer buf = new StringBuffer ();
@@ -706,7 +706,7 @@ public class GifModule extends ModuleBase
 
     /*  Read an application extension block and fill in the appropriate
      *  properties */
-    protected boolean readPlainTextExtension (RepInfo info)
+    protected boolean readPlainTextExtension (IRepInfo info)
             throws IOException
     {
         ++_numGraphicBlocks;
@@ -716,7 +716,7 @@ public class GifModule extends ModuleBase
             info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_PLAIN_TEXT_EXTENSION_BLOCK_SIZE_INVALID,
                  _nByte));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             return false;
         }
 
@@ -803,7 +803,7 @@ public class GifModule extends ModuleBase
 
     /* Read a graphics control block and fill in the
      * relevant properties */
-    protected boolean readGraphicsCtlBlock (RepInfo info)
+    protected boolean readGraphicsCtlBlock (IRepInfo info)
             throws IOException
     {
         Vector propVec = new Vector (5);
@@ -811,14 +811,14 @@ public class GifModule extends ModuleBase
             info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_GRAPH_CTL_BLOCK_MULTIPLE,
                  _nByte));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
         }
         int blockSize = readUnsignedByte (_dstream, this);
         if (blockSize != 4) {
             info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_GRAPH_CTL_BLOCK_SIZE_INVALID,
                  _nByte));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             return false;
         }
         int packedFields = readUnsignedByte (_dstream, this);

@@ -53,11 +53,11 @@ public class JHErrorElement extends JHElement {
      *  only invalidity will be ignored.  However, additional
      *  messages that indicate the current level of badness
      *  (not well-formed or invalid) will continue to be reported.*/
-    public void reportError (RepInfo info)
+    public void reportError (IRepInfo info)
     {
         // If we're already not well-formed and the error element
         // is for invalidity, don't bother with it.
-        if (info.getWellFormed() == RepInfo.FALSE && !_illFormed) {
+        if (info.getWellFormed() == IRepInfo.FALSE && !_illFormed) {
             return;
         }
         info.setMessage (new ErrorMessage (_message, _image));

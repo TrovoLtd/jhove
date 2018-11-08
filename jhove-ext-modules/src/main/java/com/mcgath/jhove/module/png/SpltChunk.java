@@ -1,7 +1,7 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** The suggested palette (sPLT) chunk */
 public class SpltChunk extends PNGChunk {
@@ -17,7 +17,7 @@ public class SpltChunk extends PNGChunk {
 	/** Process the chunk. We add a property for the suggested 
 	 *  palette by adding it to the module's list of sPLT's.
 	 */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad sPLT chunk";
 		String paletteName = null;
 		processChunkCommon(info);

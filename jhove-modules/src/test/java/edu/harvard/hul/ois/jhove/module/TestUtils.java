@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import edu.harvard.hul.ois.jhove.Message;
 import edu.harvard.hul.ois.jhove.RepInfo;
-import edu.harvard.hul.ois.jhove.module.PdfModule;
 
 /**
  * Convenience methods to test that the result of JHOVE validation are as
@@ -85,12 +85,12 @@ public final class TestUtils {
 	public static void testValidateFile(final PdfModule pdfModule,
 			final File fileToTest, final int expctWllFrmd, final int expctVld,
 			final String expctMessage) {
-		RepInfo info = parseTestFile(pdfModule, fileToTest);
+		IRepInfo info = parseTestFile(pdfModule, fileToTest);
 		testResult(info, expctWllFrmd, expctVld, expctMessage);
 	}
 
-	private static void testResult(final RepInfo info, final int expctWllFrmd,
-			final int expctVld, final String expctMessage) {
+	private static void testResult(final IRepInfo info, final int expctWllFrmd,
+                                   final int expctVld, final String expctMessage) {
 		testWellFormed(info, expctWllFrmd);
 		testIsValid(info, expctVld);
 		if (expctMessage != null) {
@@ -98,9 +98,9 @@ public final class TestUtils {
 		}
 	}
 	
-	private static RepInfo parseTestFile(final PdfModule pdfModule,
-			final File toTest) {
-		RepInfo info = new RepInfo(toTest.getName());
+	private static IRepInfo parseTestFile(final PdfModule pdfModule,
+                                          final File toTest) {
+		IRepInfo info = new RepInfo(toTest.getName());
 		RandomAccessFile raf = null;
 		try {
 			raf = new RandomAccessFile(toTest, "r");
@@ -122,20 +122,20 @@ public final class TestUtils {
 		return info;
 	}
 
-	private static void testWellFormed(final RepInfo info, final int expctWllFrmd) {
-		String message = (expctWllFrmd == RepInfo.TRUE)
+	private static void testWellFormed(final IRepInfo info, final int expctWllFrmd) {
+		String message = (expctWllFrmd == IRepInfo.TRUE)
 				? "Should be well formed."
 				: "Should NOT be well formed.";
 		assertEquals(message, expctWllFrmd, info.getWellFormed());
 	}
 
-	private static void testIsValid(final RepInfo info, final int expctVld) {
-		String message = (expctVld == RepInfo.TRUE) ? "Should be valid."
+	private static void testIsValid(final IRepInfo info, final int expctVld) {
+		String message = (expctVld == IRepInfo.TRUE) ? "Should be valid."
 				: "Should NOT be valid.";
 		assertEquals(message, expctVld, info.getValid());
 	}
 	
-	private static void testIsMessagePresent(final RepInfo info, final String expctMessage) {
+	private static void testIsMessagePresent(final IRepInfo info, final String expctMessage) {
 		boolean messagePresent = false;
 		for (Message mess : info.getMessage()) {
 			if (mess.getMessage().equals(expctMessage)) {

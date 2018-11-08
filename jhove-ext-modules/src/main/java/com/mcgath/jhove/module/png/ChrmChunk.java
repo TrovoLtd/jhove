@@ -1,8 +1,8 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import edu.harvard.hul.ois.jhove.Rational;
-import edu.harvard.hul.ois.jhove.RepInfo;
 
 /* The cHRM (primary chromaticities and white point) chunk */
 public class ChrmChunk extends PNGChunk {
@@ -30,7 +30,7 @@ public class ChrmChunk extends PNGChunk {
 	/** The IHDR chunk contains image information in a fixed format.
 	 *  I don't think the spec says it can't have extra bytes
 	 *  which would just be padding. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		String badChunk = "Bad cHRM chunk";
 		processChunkCommon(info);
 		if (_module.isPlteSeen() || _module.isIdatSeen()) {

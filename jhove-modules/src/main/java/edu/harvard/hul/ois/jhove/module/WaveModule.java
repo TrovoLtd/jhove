@@ -311,7 +311,7 @@ public class WaveModule extends ModuleBase {
      *            again with <code>parseIndex</code> equal to that return value.
      */
     @Override
-    public int parse(InputStream stream, RepInfo info, int parseIndex)
+    public int parse(InputStream stream, IRepInfo info, int parseIndex)
             throws IOException {
         initParse();
         info.setModule(this);
@@ -382,7 +382,7 @@ public class WaveModule extends ModuleBase {
                         if (compareUnsignedLongs(extendedRiffSize, Long.MAX_VALUE) > 0) {
                             info.setMessage(new InfoMessage(
                                     MessageConstants.INF_FILE_TOO_LARGE));
-                            info.setWellFormed(RepInfo.UNDETERMINED);
+                            info.setWellFormed(IRepInfo.UNDETERMINED);
                             return 0;
                         } else {
                             // Adjust the byte count with the new RIFF size
@@ -734,7 +734,7 @@ public class WaveModule extends ModuleBase {
     }
 
     /** Reads a WAVE chunk. */
-    protected boolean readChunk(RepInfo info) throws IOException {
+    protected boolean readChunk(IRepInfo info) throws IOException {
 
         Chunk chunk = null;
         ChunkHeader chunkh = new ChunkHeader(this, info);
@@ -892,7 +892,7 @@ public class WaveModule extends ModuleBase {
     }
 
     /** Reports a duplicate chunk. */
-    protected void dupChunkError(RepInfo info, String chunkName) {
+    protected void dupChunkError(IRepInfo info, String chunkName) {
         info.setMessage(new ErrorMessage(MessageConstants.ERR_CHUNK_DUP + chunkName,
                                          _nByte));
         info.setValid(false);

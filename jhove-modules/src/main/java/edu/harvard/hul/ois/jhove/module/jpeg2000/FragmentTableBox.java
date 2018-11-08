@@ -81,14 +81,14 @@ public class FragmentTableBox extends JP2Box {
                 // we can't count the bytes being read. Buf if we're
                 // going to a random access file, that may all be
                 // rendered moot anyway.   
-                retval = ccs.readCodestream (curCodestream, _repInfo);    
+                retval = ccs.readCodestream (curCodestream, _I_repInfo);
             }            
         }
         else {
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_FRAGMENT_TABLE_BOX_CONTENT_INVALID,
                  _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
         }
         finalizeBytesRead ();

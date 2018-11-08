@@ -78,6 +78,6 @@ public abstract class PdfException extends Exception
      *  object, such as setting the valid or well-formed
      *  flag to <code>false</code>.
      */
-    public abstract void disparage (RepInfo info);
+    public abstract void disparage (IRepInfo info);
 
 }

@@ -1,9 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The bKGD (background color) chunk */
 public class BkgdChunk extends PNGChunk {
@@ -23,7 +20,7 @@ public class BkgdChunk extends PNGChunk {
 	 *  different kinds of data, so make them three different
 	 *  properties so that processing software doesn't get confused.
 	 */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad bKGD chunk";
 		processChunkCommon(info);
 		ErrorMessage msg = null;

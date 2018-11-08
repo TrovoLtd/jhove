@@ -104,9 +104,9 @@ public abstract class JP2Box extends BoxHolder {
     
     /** Assigns a RepInfo object, so that subclasses of 
      *  JP2Box can add Properties and Messages. */
-    public void setRepInfo (RepInfo info)
+    public void setRepInfo (IRepInfo info)
     {
-        _repInfo = info;
+        _I_repInfo = info;
     }
     
     /** Assigns the DataInputStream from which the box is
@@ -341,10 +341,10 @@ public abstract class JP2Box extends BoxHolder {
      */
     protected void wrongBoxSize () 
     {
-        _repInfo.setMessage (new ErrorMessage
+        _I_repInfo.setMessage (new ErrorMessage
             (MessageConstants.ERR_BOX_SIZE_INVALID + getSelfPropName (),
              _module.getFilePos ()));
-        _repInfo.setWellFormed (false);
+        _I_repInfo.setWellFormed (false);
     }
     
     /** Utility error reporting function for box in a context
@@ -353,10 +353,10 @@ public abstract class JP2Box extends BoxHolder {
      */
     protected void wrongBoxContext ()
     {
-        _repInfo.setMessage (new ErrorMessage
+        _I_repInfo.setMessage (new ErrorMessage
             (MessageConstants.ERR_BOX_CONTEXT_INVALID + getSelfPropName (),
              _module.getFilePos ()));
-        _repInfo.setWellFormed (false);
+        _I_repInfo.setWellFormed (false);
     }
     
     /** Utility error reporting function for a box which is
@@ -364,10 +364,10 @@ public abstract class JP2Box extends BoxHolder {
      */
     protected void emptyBox ()
     {
-        _repInfo.setMessage (new ErrorMessage
+        _I_repInfo.setMessage (new ErrorMessage
             (MessageConstants.ERR_BOX_CONTENT_EMPTY,
              "Box type = " + getSelfPropName (), _module.getFilePos ()));
-        _repInfo.setWellFormed (false);
+        _I_repInfo.setWellFormed (false);
     }
     
     

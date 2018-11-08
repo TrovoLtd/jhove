@@ -102,7 +102,7 @@ public abstract class IFD
     private NumberFormat _format;
 
     /** Representation information. */
-    protected RepInfo _info;
+    protected IRepInfo _info;
 
     /** Offset of next IFD. */
     protected long _next;
@@ -126,8 +126,8 @@ public abstract class IFD
      * @param raf TIFF file
      * @param bigEndian True if big-endian file
      */
-    public IFD(long offset, RepInfo info, RandomAccessFile raf,
-                boolean bigEndian)
+    public IFD(long offset, IRepInfo info, RandomAccessFile raf,
+               boolean bigEndian)
     {
         _offset    = offset;
         _info      = info;

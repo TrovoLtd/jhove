@@ -48,7 +48,7 @@ public class SaxelChunk extends Chunk {
      *            invalid, otherwise <code>true</code>
      * 
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         AiffModule module = (AiffModule) _module;
         int numSaxels = module.readUnsignedShort (_dstream);
         bytesLeft -= 2;

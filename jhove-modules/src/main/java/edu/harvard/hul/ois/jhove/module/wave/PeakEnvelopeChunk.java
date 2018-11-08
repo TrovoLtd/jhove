@@ -41,7 +41,7 @@ public class PeakEnvelopeChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         long version = module.readUnsignedInt (_dstream);
         long format = module.readUnsignedInt (_dstream);
@@ -89,7 +89,7 @@ public class PeakEnvelopeChunk extends Chunk {
                 info.setMessage (new ErrorMessage 
                         (MessageConstants.ERR_PEC_PPV_INVAL));
             }
-            if (info.getValid() == RepInfo.FALSE) {
+            if (info.getValid() == IRepInfo.FALSE) {
                 module.skipBytes (_dstream, (int) bytesLeft - 120, module);
                 return true;
             }

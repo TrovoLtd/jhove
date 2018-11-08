@@ -39,7 +39,7 @@ public class PLTMarkerSegment extends MarkerSegment {
     protected boolean process(int bytesToEat) throws IOException {
         Tile tile = _ccs.getCurTile ();
         if (tile == null) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_PLT_MARKER_POSITION_INVALID));
             return false;    // a tile (SOT) is required
         }
@@ -56,7 +56,7 @@ public class PLTMarkerSegment extends MarkerSegment {
                 int pkByte = ModuleBase.readUnsignedByte (_dstream, _module);
                 if (--bytesToEat < 0) {
                     // bytes of a number can't cross marker segment boundaries
-                    _repInfo.setMessage (new ErrorMessage
+                    _I_repInfo.setMessage (new ErrorMessage
                             (MessageConstants.ERR_PLT_MARKER_PACKET_SIZE_INVALID));
                     return false;
                 }

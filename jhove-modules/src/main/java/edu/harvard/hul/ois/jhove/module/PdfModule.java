@@ -39,32 +39,12 @@ import java.util.zip.ZipException;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import edu.harvard.hul.ois.jhove.*;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import edu.harvard.hul.ois.jhove.Agent;
-import edu.harvard.hul.ois.jhove.Checksummer;
-import edu.harvard.hul.ois.jhove.Document;
-import edu.harvard.hul.ois.jhove.DocumentType;
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.ExternalSignature;
-import edu.harvard.hul.ois.jhove.Identifier;
-import edu.harvard.hul.ois.jhove.IdentifierType;
-import edu.harvard.hul.ois.jhove.InfoMessage;
-import edu.harvard.hul.ois.jhove.InternalSignature;
-import edu.harvard.hul.ois.jhove.Module;
-import edu.harvard.hul.ois.jhove.ModuleBase;
-import edu.harvard.hul.ois.jhove.NisoImageMetadata;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyArity;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
-import edu.harvard.hul.ois.jhove.SignatureType;
-import edu.harvard.hul.ois.jhove.SignatureUseType;
-import edu.harvard.hul.ois.jhove.XMPHandler;
 import edu.harvard.hul.ois.jhove.module.pdf.AProfile;
 import edu.harvard.hul.ois.jhove.module.pdf.AProfileLevelA;
-import edu.harvard.hul.ois.jhove.module.pdf.Comment;
 import edu.harvard.hul.ois.jhove.module.pdf.CrossRefStream;
 import edu.harvard.hul.ois.jhove.module.pdf.Destination;
 import edu.harvard.hul.ois.jhove.module.pdf.DictionaryStart;
@@ -781,7 +761,7 @@ public class PdfModule extends ModuleBase {
      *                the descriptive information
      */
     @Override
-    public final void parse(RandomAccessFile raf, RepInfo info)
+    public final void parse(RandomAccessFile raf, IRepInfo info)
         throws IOException
     {
         initParse();
@@ -953,7 +933,7 @@ public class PdfModule extends ModuleBase {
         if (!_parser.getPDFACompliant()) {
             _pdfACompliant = false;
         }
-        if (info.getWellFormed() == RepInfo.TRUE) {
+        if (info.getWellFormed() == IRepInfo.TRUE) {
             // Well-formedness is necessary to satisfy any profile.
             ListIterator<PdfProfile> pter = _profile.listIterator();
             while (pter.hasNext()) {
@@ -1067,7 +1047,7 @@ public class PdfModule extends ModuleBase {
         _nFonts = 0;
     }
 
-    protected boolean parseHeader(RepInfo info) throws IOException
+    protected boolean parseHeader(IRepInfo info) throws IOException
     {
         PdfHeader header = PdfHeader.parseHeader(_parser);
         if (header == null) {
@@ -1179,7 +1159,7 @@ public class PdfModule extends ModuleBase {
 
 
     /** Locate the last trailer of the file */
-    protected boolean findLastTrailer(RepInfo info) throws IOException
+    protected boolean findLastTrailer(IRepInfo info) throws IOException
     {
         /* Parse file trailer. Technically, this should be the last thing in
          * the file, but we follow the Acrobat convention of looking in the
@@ -1257,7 +1237,7 @@ public class PdfModule extends ModuleBase {
     }
     /*  Parse a "trailer" (which is not necessarily the last
         thing in the file, as trailers can be linked.) */
-    protected boolean parseTrailer(RepInfo info,
+    protected boolean parseTrailer(IRepInfo info,
                                 boolean prevOnly)
                                 throws IOException
     {
@@ -1425,7 +1405,7 @@ public class PdfModule extends ModuleBase {
     }
 
     /* Parses the cross-reference table or stream. */
-    protected boolean readXRefInfo(RepInfo info) throws IOException
+    protected boolean readXRefInfo(IRepInfo info) throws IOException
     {
         if (_xrefIsStream) {
             return readXRefStreams(info);
@@ -1438,7 +1418,7 @@ public class PdfModule extends ModuleBase {
      * I still need to deal with hybrid cases.  All linked cross-reference
      * streams are handled here.
      */
-    protected boolean readXRefStreams(RepInfo info) throws IOException
+    protected boolean readXRefStreams(IRepInfo info) throws IOException
     {
         _pdfACompliant = false;   // current version of PDF/A doesn't recognize XREF streams
         while (_startxref > 0) {
@@ -1505,7 +1485,7 @@ public class PdfModule extends ModuleBase {
 
     /* Parses the cross-reference table.  This is called from
      * readXRefInfo if there is a cross-reference table. */
-    protected boolean readXRefTables(RepInfo info) throws IOException
+    protected boolean readXRefTables(IRepInfo info) throws IOException
     {
         Token  token = null;
         try {
@@ -1573,7 +1553,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected boolean readDocCatalogDict(RepInfo info)
+    protected boolean readDocCatalogDict(IRepInfo info)
                         throws IOException
     {
         Property p = null;
@@ -1754,7 +1734,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected boolean readEncryptDict(RepInfo info)
+    protected boolean readEncryptDict(IRepInfo info)
                         throws IOException
     {
         String filterText = "";
@@ -1896,7 +1876,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected boolean readDocInfoDict(RepInfo info)
+    protected boolean readDocInfoDict(IRepInfo info)
                         throws IOException
     {
         // Get the Info reference which we had before, and
@@ -1936,7 +1916,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected boolean readDocumentTree(RepInfo info)
+    protected boolean readDocumentTree(IRepInfo info)
                         throws IOException
     {
         try {
@@ -1981,7 +1961,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected boolean readPageLabelTree(RepInfo info)
+    protected boolean readPageLabelTree(IRepInfo info)
     {
         // the page labels number tree is optional.
         try {
@@ -2006,7 +1986,7 @@ public class PdfModule extends ModuleBase {
         return true;        // always succeeds
     }
 
-    protected boolean readXMPData(RepInfo info)
+    protected boolean readXMPData(IRepInfo info)
     {
         try {
             PdfStream metadata = (PdfStream) resolveIndirectObject(_docCatDict.get(DICT_KEY_METADATA));
@@ -2065,7 +2045,7 @@ public class PdfModule extends ModuleBase {
         return true;
     }
 
-    protected void findExternalStreams(RepInfo info) throws IOException
+    protected void findExternalStreams(IRepInfo info) throws IOException
     {
         _extStreamsList = new LinkedList<Property>();
 		// stop processing if there is no root for the document tree
@@ -2113,7 +2093,7 @@ public class PdfModule extends ModuleBase {
      *  @return  <code>false</code> if the filter structure is
      *           defective.
      */
-    protected boolean findFilters(RepInfo info)
+    protected boolean findFilters(IRepInfo info)
                 throws IOException
     {
         _filtersList = new LinkedList<Property>();
@@ -2202,7 +2182,7 @@ public class PdfModule extends ModuleBase {
         return filterStr;
     }
 
-    protected void findImages(RepInfo info) throws IOException
+    protected void findImages(IRepInfo info) throws IOException
     {
         _imagesList = new LinkedList<Property>();
         _docTreeRoot.startWalk();
@@ -2433,7 +2413,7 @@ public class PdfModule extends ModuleBase {
         return -1;   // no match
     }
 
-    protected void findFonts(RepInfo info) throws IOException
+    protected void findFonts(IRepInfo info) throws IOException
     {
         _type0FontsMap = new HashMap<Integer, PdfObject>();
         _type1FontsMap = new HashMap<Integer, PdfObject>();
@@ -2893,7 +2873,7 @@ public class PdfModule extends ModuleBase {
     }
 
     /* Build Pages property, with associated subproperties. */
-    protected void addPagesProperty(List<Property> metadataList, RepInfo info)
+    protected void addPagesProperty(List<Property> metadataList, IRepInfo info)
     {
         _pagesList = new LinkedList<Property>();
         _pageSeqMap = new HashMap<Integer, Integer>(500);
@@ -2963,7 +2943,7 @@ public class PdfModule extends ModuleBase {
     /* Build a subproperty for one PageObject. */
     protected Property buildPageProperty(PageObject page,
                         int idx,
-                        RepInfo info)
+                        IRepInfo info)
                 throws PdfException
     {
         List<Property> pagePropList = new ArrayList<Property>(4);
@@ -3269,7 +3249,7 @@ public class PdfModule extends ModuleBase {
     }
 
     /* Build a subproperty of a subproperty for an annotation. */
-    protected Property buildAnnotProperty(PdfDictionary annot, RepInfo info)
+    protected Property buildAnnotProperty(PdfDictionary annot, IRepInfo info)
 	throws PdfException
     {
         List<Property> propList = new ArrayList<Property>(7);
@@ -3420,7 +3400,7 @@ public class PdfModule extends ModuleBase {
      * a representative property to the property list.
      */
     protected void addDestination(PdfObject itemObj, String propName,
-				 List<Property> propList, RepInfo info)
+				 List<Property> propList, IRepInfo info)
     {
     	try {
     	    Destination dest = new Destination(itemObj, this, false);
@@ -4044,7 +4024,7 @@ public class PdfModule extends ModuleBase {
        Outlines can be recursive, according to Adobe people, so we have
        to track visited nodes.
     */
-    protected Property buildOutlinesProperty(PdfDictionary dict, RepInfo info)
+    protected Property buildOutlinesProperty(PdfDictionary dict, IRepInfo info)
             throws PdfException
     {
         _recursionWarned = false;
@@ -4105,7 +4085,7 @@ public class PdfModule extends ModuleBase {
        Outline item property has children, then there is a list
        property called "Children" with elements called "Item".
        It calls itself recursively to walk down the outline. */
-    protected Property buildOutlineItemProperty(PdfDictionary dict, RepInfo info)
+    protected Property buildOutlineItemProperty(PdfDictionary dict, IRepInfo info)
 	            throws PdfException
     {
         List<Property> itemList = new ArrayList<Property>(3);
@@ -4233,7 +4213,7 @@ public class PdfModule extends ModuleBase {
        would otherwise make sense, because we can't build
        the outlines property till we have a page tree to
        locate destinations. */
-    protected boolean doOutlineStuff(RepInfo info)
+    protected boolean doOutlineStuff(IRepInfo info)
     {
         if (_outlineDict != null) {
             try {
@@ -4418,7 +4398,7 @@ public class PdfModule extends ModuleBase {
                 iarr);
     }
 
-    private static boolean checkTypeKey(final PdfDictionary dict, final RepInfo info,
+    private static boolean checkTypeKey(final PdfDictionary dict, final IRepInfo info,
                                  final String expctVal, final String typeInvalMess,
                                  final String typeNotFoundMess,
                                  final String typeNotSimpleMess) {

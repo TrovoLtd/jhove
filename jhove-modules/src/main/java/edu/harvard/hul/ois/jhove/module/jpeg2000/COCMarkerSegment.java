@@ -46,7 +46,7 @@ public class COCMarkerSegment extends MarkerSegment {
         int compIdxBytes =  nCompBytes();
         if (compIdxBytes == 0) {
             // COC found before SIZ
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_COC_MARKER_POSITION_INVALID));
             return false;
         }

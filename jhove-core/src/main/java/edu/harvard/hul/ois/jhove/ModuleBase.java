@@ -576,7 +576,7 @@ public abstract class ModuleBase
      *                    called again with <code>parseIndex</code> 
      *                    equal to that return value.
      */
-    public int parse (InputStream stream, RepInfo info, int parseIndex)
+    public int parse (InputStream stream, IRepInfo info, int parseIndex)
         throws IOException
     {
         return 0;
@@ -593,7 +593,7 @@ public abstract class ModuleBase
      *   @param info      A fresh RepInfo object which will be modified
      *                    to reflect the results of the parsing
      */
-    public void parse (RandomAccessFile file, RepInfo info)
+    public void parse (RandomAccessFile file, IRepInfo info)
         throws IOException
     {
     }
@@ -616,7 +616,7 @@ public abstract class ModuleBase
      */
     public void checkSignatures (File file,
                 InputStream stream, 
-                RepInfo info) 
+                IRepInfo info)
         throws IOException
     {
         info.setFormat (_format[0]);
@@ -668,7 +668,7 @@ public abstract class ModuleBase
                 }
             }
         }
-        else if (info.getWellFormed() == RepInfo.TRUE) {
+        else if (info.getWellFormed() == IRepInfo.TRUE) {
             info.setSigMatch(_name);
         }
     }
@@ -688,7 +688,7 @@ public abstract class ModuleBase
      */
     public void checkSignatures (File file,
             RandomAccessFile raf, 
-            RepInfo info)
+            IRepInfo info)
         throws IOException
     {
         info.setFormat (_format[0]);
@@ -733,7 +733,7 @@ public abstract class ModuleBase
         if (sigsChecked == 0) {
             info.setWellFormed (false);
         }
-        else if (info.getWellFormed() == RepInfo.TRUE) {
+        else if (info.getWellFormed() == IRepInfo.TRUE) {
             info.setSigMatch(_name);
         }
     }
@@ -787,7 +787,7 @@ public abstract class ModuleBase
      * @param ckSummer Checksummer object
      * @param info     RepInfo object
      */
-    protected void setChecksums (Checksummer ckSummer, RepInfo info)
+    protected void setChecksums (Checksummer ckSummer, IRepInfo info)
     {
         if (ckSummer != null){
             info.setChecksum (new Checksum (ckSummer.getCRC32 (), 

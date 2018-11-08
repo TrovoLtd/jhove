@@ -15,16 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.DataFormatException;
 
+import edu.harvard.hul.ois.jhove.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.jwat.common.DiagnosisType;
-
-import edu.harvard.hul.ois.jhove.Message;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyArity;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
 
 @RunWith(JUnit4.class)
 public class GzipModuleTest {
@@ -34,11 +29,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
-        assertEquals(RepInfo.TRUE, info.getValid());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getValid());
         assertEquals(Arrays.asList(gzm.getName()), info.getSigMatch());
         
         assertEquals(0, info.getMessage().size());
@@ -56,10 +51,10 @@ public class GzipModuleTest {
         File gzipFile = new File("src/test/resources/gzip/sample.txt.gz");
 
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.checkSignatures(null, new FileInputStream(gzipFile), info);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
         assertEquals(GzipModule.class, info.getModule().getClass());
         assertEquals(Arrays.asList(gzm.getName()), info.getSigMatch());
     }
@@ -70,11 +65,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
-        assertEquals(RepInfo.TRUE, info.getValid());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getValid());
         assertEquals(Arrays.asList(gzm.getName()), info.getSigMatch());
         
         assertEquals(0, info.getMessage().size());
@@ -90,10 +85,10 @@ public class GzipModuleTest {
         File gzipFile = new File("src/test/resources/gzip/three-files.gz");
 
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.checkSignatures(null, new FileInputStream(gzipFile), info);
         
-        assertEquals(RepInfo.TRUE, info.getWellFormed());
+        assertEquals(IRepInfo.TRUE, info.getWellFormed());
         assertEquals(GzipModule.class, info.getModule().getClass());
         assertEquals(Arrays.asList(gzm.getName()), info.getSigMatch());
     }
@@ -104,11 +99,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 
         // Validate the failures.
@@ -124,11 +119,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 
         // Validate the failures.
@@ -144,11 +139,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 
         // Validate the failures.
@@ -166,11 +161,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 
         // Validate the failures.
@@ -186,11 +181,11 @@ public class GzipModuleTest {
         assertTrue( gzipFile.isFile() );
         
         GzipModule gzm = new GzipModule();
-        RepInfo info = new RepInfo(gzipFile.getAbsolutePath());
+        IRepInfo info = new RepInfo(gzipFile.getAbsolutePath());
         gzm.parse(new FileInputStream(gzipFile), info, 0);
         
-        assertEquals(RepInfo.FALSE, info.getWellFormed());
-        assertEquals(RepInfo.FALSE, info.getValid());
+        assertEquals(IRepInfo.FALSE, info.getWellFormed());
+        assertEquals(IRepInfo.FALSE, info.getValid());
         assertTrue(info.getSigMatch().isEmpty());
 
         // Validate the failures.

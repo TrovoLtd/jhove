@@ -1,9 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 //import edu.harvard.hul.ois.jhove.module.PngModule;
 
 /** Representation of the IHDR (header) chunk */
@@ -70,7 +67,7 @@ public class IhdrChunk extends PNGChunk {
 	/** The IHDR chunk contains image information in a fixed format.
 	 *  I don't think the spec says it can't have extra bytes
 	 *  which would just be padding. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		boolean badChunk = false;
 		processChunkCommon(info);
 		if (_module.isIhdrSeen ()) {

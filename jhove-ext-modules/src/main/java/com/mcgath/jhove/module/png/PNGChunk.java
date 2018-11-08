@@ -7,11 +7,7 @@ import java.util.zip.CRC32;
 
 import com.mcgath.jhove.module.PngModule;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.ModuleBase;
-import edu.harvard.hul.ois.jhove.NisoImageMetadata;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 public abstract class PNGChunk {
 	protected long length;		// length of the data portion
@@ -162,14 +158,14 @@ public abstract class PNGChunk {
 	 *  The default behavior is to eat the chunk. This should
 	 *  be the behavior only for UnknownChunk when we're done.
 	 */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		_module.eatChunk(this);	// TODO temporary
 	}	
 
 	/** Common code to call at the start of every processChunk method. 
 	 */
-	public void processChunkCommon (RepInfo info) throws PNGException {
+	public void processChunkCommon (IRepInfo info) throws PNGException {
 		if (ancillary && !duplicateAllowed) {
 			if (_module.isChunkSeen(chunkType)) {
 				ErrorMessage msg = new ErrorMessage 

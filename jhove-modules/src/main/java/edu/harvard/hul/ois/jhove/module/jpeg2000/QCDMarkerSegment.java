@@ -66,7 +66,7 @@ public class QCDMarkerSegment extends MarkerSegment {
             break;
             
             default:
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_QCD_MARKER_QUANTIZATION_TYPE_INVALID));
             return false;    // reserved value
         }

@@ -43,10 +43,10 @@ public class DataEntryURLBox extends JP2Box {
             // If they aren't, keep going, since we can.
             int v = ModuleBase.readUnsignedByte (_dstrm, _module);
             if (v != 0) {
-                _repInfo.setMessage (new ErrorMessage
+                _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_DATA_ENTRY_URL_BOX_VERSION_FLAG_INVALID,
                      _module.getFilePos ()));
-                _repInfo.setValid (false);
+                _I_repInfo.setValid (false);
                 break;
             }
         }

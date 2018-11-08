@@ -3,7 +3,7 @@ package com.mcgath.jhove.module.png;
 import edu.harvard.hul.ois.jhove.ErrorMessage;
 //import edu.harvard.hul.ois.jhove.Property;
 //import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** Representation of the tEXt (plain text) chunk */
 public class TextChunk extends GeneralTextChunk {
@@ -18,7 +18,7 @@ public class TextChunk extends GeneralTextChunk {
 		duplicateAllowed = true;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		
 		// The tEXt chunk consists of a keyword, a null, and a value.

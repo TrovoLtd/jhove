@@ -46,7 +46,7 @@ public class AudioRecChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         AiffModule module = (AiffModule) _module;
         if (bytesLeft != 24) {
             // This chunk must always have exactly 24 bytes data

@@ -1,7 +1,7 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** Representation of the iTXt (internationalized text) chunk */
 public class ItxtChunk extends GeneralTextChunk {
@@ -15,7 +15,7 @@ public class ItxtChunk extends GeneralTextChunk {
 	}
 	
 	/** Process the data portion of the chunk. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badchunk = "Bad iTXt chunk";
 		processChunkCommon(info);
 		

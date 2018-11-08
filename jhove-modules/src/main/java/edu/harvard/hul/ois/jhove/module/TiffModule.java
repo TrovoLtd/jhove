@@ -404,7 +404,7 @@ public class TiffModule extends ModuleBase {
      *            Representation informatino
      */
     @Override
-    public final void parse(RandomAccessFile raf, RepInfo info)
+    public final void parse(RandomAccessFile raf, IRepInfo info)
             throws IOException {
         if (_defaultParams != null) {
             Iterator<String> iter = _defaultParams.iterator();
@@ -595,7 +595,7 @@ public class TiffModule extends ModuleBase {
      * @param info
      *            Representation information
      */
-    public final List<IFD> exifParse(RandomAccessFile raf, RepInfo info)
+    public final List<IFD> exifParse(RandomAccessFile raf, IRepInfo info)
             throws IOException {
         _raf = raf;
         initParse();
@@ -750,7 +750,7 @@ public class TiffModule extends ModuleBase {
      * field to false. Validity problems are non-fatal, and more information is
      * better, so we keep going with all IFDs even if we find problems.
      */
-    protected void checkValidity(List<IFD> ifds, RepInfo info) {
+    protected void checkValidity(List<IFD> ifds, IRepInfo info) {
         _logger.info("TiffModule checking validity of IFDs");
         ListIterator<IFD> iter = ifds.listIterator();
         while (iter.hasNext()) {
@@ -772,7 +772,7 @@ public class TiffModule extends ModuleBase {
      * @param ifd
      *            IFD
      */
-    protected void checkValidity(TiffIFD ifd, RepInfo info)
+    protected void checkValidity(TiffIFD ifd, IRepInfo info)
             throws TiffException {
         /* Required fields. */
 
@@ -1034,7 +1034,7 @@ public class TiffModule extends ModuleBase {
     }
 
     /** Report an instance of invalidity. */
-    protected void reportInvalid(String s, RepInfo info) {
+    protected void reportInvalid(String s, IRepInfo info) {
         info.setMessage(new ErrorMessage(s));
         info.setValid(false);
 
@@ -1048,7 +1048,7 @@ public class TiffModule extends ModuleBase {
      * @param info
      *            Representation information
      */
-    protected List<IFD> parseIFDs(long offset, RepInfo info)
+    protected List<IFD> parseIFDs(long offset, IRepInfo info)
             throws TiffException {
         return parseIFDs(offset, info, false, IFD.TIFF);
     }
@@ -1063,7 +1063,7 @@ public class TiffModule extends ModuleBase {
      * @param suppressErrors
      *            If true, use IFD even if it has errors
      */
-    protected List<IFD> parseIFDs(long offset, RepInfo info,
+    protected List<IFD> parseIFDs(long offset, IRepInfo info,
             boolean suppressErrors, int ifdType) throws TiffException {
         long next = 0L;
         try {
@@ -1093,8 +1093,8 @@ public class TiffModule extends ModuleBase {
         return list;
     }
 
-    protected IFD parseIFDChain(long next, RepInfo info, int type,
-            List<IFD> list, boolean suppressErrors) throws TiffException {
+    protected IFD parseIFDChain(long next, IRepInfo info, int type,
+                                List<IFD> list, boolean suppressErrors) throws TiffException {
         IFD ifd = null;
         switch (type) {
         case IFD.EXIF:

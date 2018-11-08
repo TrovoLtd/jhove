@@ -8,7 +8,7 @@ package edu.harvard.hul.ois.jhove.module.aiff;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.*;
-import edu.harvard.hul.ois.jhove.RepInfo;
+
 import edu.harvard.hul.ois.jhove.*;
 import edu.harvard.hul.ois.jhove.module.AiffModule;
 import edu.harvard.hul.ois.jhove.module.iff.*;
@@ -41,7 +41,7 @@ public class InstrumentChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException 
+    public boolean readChunk(IRepInfo info) throws IOException
     {
         AiffModule module = (AiffModule) _module;
         int baseNote = ModuleBase.readUnsignedByte (_dstream, module);

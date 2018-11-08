@@ -1,10 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyArity;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The sBIT (significant bits) chunk */
 public class SbitChunk extends PNGChunk {
@@ -20,7 +16,7 @@ public class SbitChunk extends PNGChunk {
 	/** The SBIT chunk contains 1 to 4 bytes of information giving the
 	 *  number of significant bits per color.  Ideally, we should check
 	 *  this against the color model. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad sBIT chunk";
 		processChunkCommon(info);
 		if (_module.isPlteSeen() || _module.isIdatSeen()) {

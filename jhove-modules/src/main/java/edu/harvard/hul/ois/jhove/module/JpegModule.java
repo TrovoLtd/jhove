@@ -401,7 +401,7 @@ public class JpegModule extends ModuleBase {
      *            results of the test
      */
     @Override
-    public void checkSignatures(File file, InputStream stream, RepInfo info)
+    public void checkSignatures(File file, InputStream stream, IRepInfo info)
             throws IOException {
         int i;
         int ch;
@@ -445,7 +445,7 @@ public class JpegModule extends ModuleBase {
      *            again with <code>parseIndex</code> equal to that return value.
      */
     @Override
-    public int parse(InputStream stream, RepInfo info, int parseIndex)
+    public int parse(InputStream stream, IRepInfo info, int parseIndex)
             throws IOException {
         initParse();
         info.setFormat(_format[0]);
@@ -898,7 +898,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* This just reads the initial SOI */
-    protected boolean readHeader(RepInfo info) {
+    protected boolean readHeader(IRepInfo info) {
         int i;
         int ch;
         boolean valid = true;
@@ -926,7 +926,7 @@ public class JpegModule extends ModuleBase {
      * itself.
      */
     @SuppressWarnings("fallthrough")
-    protected void readAPP0(RepInfo info) throws IOException {
+    protected void readAPP0(IRepInfo info) throws IOException {
         // Bytes for JFIF extension APP0
         final int jfxxByte[] = { 0X4A, 0X46, 0X58, 0X58, 0X00 };
         // Bytes for JFIF base APP0
@@ -1056,7 +1056,7 @@ public class JpegModule extends ModuleBase {
      * Reads an APP1 marker segment. This may contain Exif data, i.e., a whole
      * TIFF file embedded in the segment.
      */
-    protected void readAPP1(RepInfo info) throws IOException {
+    protected void readAPP1(IRepInfo info) throws IOException {
         final int[] exifByte = { 0X45, 0X78, 0X69, 0X66, 0X00, 0X00 };
         // First 6 bytes of xmpStr
         final int[] xmpByte = { 0X68, 0X74, 0X74, 0X70, 0X3A, 0X2F };
@@ -1093,7 +1093,7 @@ public class JpegModule extends ModuleBase {
                 return;
             }
             JpegExif je = new JpegExif();
-            RepInfo exifInfo = je.readExifData(_dstream, _je, length);
+            IRepInfo exifInfo = je.readExifData(_dstream, _je, length);
             if (exifInfo != null) {
                 /* Copy any EXIF messages into the JPEG info object. */
                 List<Message> list = exifInfo.getMessage();
@@ -1146,7 +1146,7 @@ public class JpegModule extends ModuleBase {
      * at the beginning of the file. If we're already in a SPIFF file, it's a
      * directory entry. We have already read the APP8 marker itself.
      */
-    protected void readAPP8(RepInfo info) throws IOException {
+    protected void readAPP8(IRepInfo info) throws IOException {
         final int[] spiffByte = { 0X53, 0X50, 0X49, 0X46, 0X46, 0X00 };
 
         /* Seeing an APP8 segment counts as seeing a signature. */
@@ -1223,7 +1223,7 @@ public class JpegModule extends ModuleBase {
     /*
      * Reads an APP2 marker segment. This may include an ICC_PROFILE.
      */
-    protected void readAPP2(RepInfo info) throws IOException {
+    protected void readAPP2(IRepInfo info) throws IOException {
         final String iccProfileSequence = "ICC_PROFILE\0";
         final int SEQUENCE_LENGTH = 12;
         
@@ -1275,7 +1275,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read the VER marker, and set version information accordingly */
-    protected void readVer(RepInfo info) throws IOException {
+    protected void readVer(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         int majVersion = readUnsignedByte(_dstream, this);
         int minVersion = readUnsignedByte(_dstream, this);
@@ -1302,7 +1302,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read the DTI segment, and begin setting up the tiling property */
-    protected void readDTI(RepInfo info) throws IOException {
+    protected void readDTI(IRepInfo info) throws IOException {
         readUnsignedShort(_dstream);
         _tiling = new Tiling();
         _tiling.setTilingType(readUnsignedByte(_dstream, this));
@@ -1316,7 +1316,7 @@ public class JpegModule extends ModuleBase {
     /*
      * Read the DTT segment. There should already be a tiling property set up.
      */
-    protected void readDTT(RepInfo info) throws IOException {
+    protected void readDTT(IRepInfo info) throws IOException {
         readUnsignedShort(_dstream);
         if (_tiling == null) {
             info.setMessage(new ErrorMessage(
@@ -1336,7 +1336,7 @@ public class JpegModule extends ModuleBase {
      * Read an SRS segment. This provides information about progressive scans
      * and so on.
      */
-    protected void readSRS(RepInfo info) throws IOException {
+    protected void readSRS(IRepInfo info) throws IOException {
         readUnsignedShort(_dstream);
         int vertOffset = readUnsignedShort(_dstream);
         int horOffset = readUnsignedShort(_dstream);
@@ -1353,7 +1353,7 @@ public class JpegModule extends ModuleBase {
      * is made to weed out duplicates, since multiple instances of the same
      * segment number are legitimate and informative.
      */
-    protected void reportAppExt(int dbyt, RepInfo info) {
+    protected void reportAppExt(int dbyt, IRepInfo info) {
         String appStr = "APP";
         if (dbyt <= 0XE9) {
             // 0-9
@@ -1371,7 +1371,7 @@ public class JpegModule extends ModuleBase {
      * this has to be figured out, including the distinction between images and
      * frames.
      */
-    protected void readSOF(int dbyt, RepInfo info) throws IOException {
+    protected void readSOF(int dbyt, IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         int precision = readUnsignedByte(_dstream, this);
         int nLines = readUnsignedShort(_dstream);
@@ -1394,7 +1394,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read a DHP segment. This has the same format as SOF. */
-    protected void readDHP(RepInfo info) throws IOException {
+    protected void readDHP(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         int precision = readUnsignedByte(_dstream, this);
         int nLines = readUnsignedShort(_dstream);
@@ -1415,7 +1415,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read an EXP segment. */
-    protected void readEXP(RepInfo info) throws IOException {
+    protected void readEXP(IRepInfo info) throws IOException {
         readUnsignedShort(_dstream);
         int lhlv = readUnsignedByte(_dstream, this);
         boolean arr[] = new boolean[2];
@@ -1425,7 +1425,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read a DRI (Data Restart Interval) segment. */
-    protected void readDRI(RepInfo info) throws IOException {
+    protected void readDRI(IRepInfo info) throws IOException {
         readUnsignedShort(_dstream);
         _restartInterval = readUnsignedShort(_dstream);
     }
@@ -1434,7 +1434,7 @@ public class JpegModule extends ModuleBase {
      * Read a DQT (Define Quantization Table) segment. (10918-1:1994(E),
      * B.2.4.1)
      */
-    protected void readDQT(RepInfo info) throws IOException {
+    protected void readDQT(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         int pqtq = readUnsignedByte(_dstream, this);
         int pq = pqtq >> 4;
@@ -1448,7 +1448,7 @@ public class JpegModule extends ModuleBase {
      * Read a DAC (Define Arithmetic Conditioning) segment. (10918-1:1994(E),
      * B.2.4.1)
      */
-    protected void readDAC(RepInfo info) throws IOException {
+    protected void readDAC(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         int pqtq = readUnsignedByte(_dstream, this);
         int pq = pqtq >> 4;
@@ -1459,7 +1459,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Read a JPGn (JPEG Extension) segment. */
-    protected void readJPEGExtension(int dbyt, RepInfo info) throws IOException {
+    protected void readJPEGExtension(int dbyt, IRepInfo info) throws IOException {
         String ext;
         if (dbyt <= 0XF9) {
             // 0-9
@@ -1514,7 +1514,7 @@ public class JpegModule extends ModuleBase {
      * first null, or the entire comment data (whichever comes first) will be
      * read into a string.
      */
-    protected void readComment(RepInfo info) throws IOException {
+    protected void readComment(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         StringBuffer buf = new StringBuffer();
         boolean getChars = true;
@@ -1537,7 +1537,7 @@ public class JpegModule extends ModuleBase {
      * Build a property based on the capability0 and capability1 bytes. If these
      * are both -1 (absent), return null.
      */
-    protected Property buildCapProp(RepInfo info) {
+    protected Property buildCapProp(IRepInfo info) {
         if (_capability0 < 0) {
             return null;
         }
@@ -1583,7 +1583,7 @@ public class JpegModule extends ModuleBase {
     }
 
     /* Build a property from the tiling information. */
-    protected Property buildTilingProp(RepInfo info) {
+    protected Property buildTilingProp(IRepInfo info) {
         if (_tiling == null) {
             return null;
         }
@@ -1617,7 +1617,7 @@ public class JpegModule extends ModuleBase {
         }
     }
 
-    protected Property buildExpandProp(RepInfo info) {
+    protected Property buildExpandProp(IRepInfo info) {
         List<Property> plist = new LinkedList<Property>();
         Property prop = new Property("ExpansionSegments",
                 PropertyType.PROPERTY, PropertyArity.LIST, plist);
@@ -1835,7 +1835,7 @@ public class JpegModule extends ModuleBase {
      * Skip over a segment without doing anything. When this is called, we have
      * already read the marker and the stream is ready to read the length.
      */
-    protected boolean skipSegment(RepInfo info) throws IOException {
+    protected boolean skipSegment(IRepInfo info) throws IOException {
         int length = readUnsignedShort(_dstream);
         skipBytes(_dstream, length - 2, this);
         return true;

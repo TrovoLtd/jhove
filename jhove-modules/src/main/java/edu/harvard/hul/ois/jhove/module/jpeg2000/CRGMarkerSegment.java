@@ -39,13 +39,13 @@ public class CRGMarkerSegment extends MarkerSegment {
     protected boolean process(int bytesToEat) throws IOException 
     {
         if (_ccs.getCurTile () != null) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_CRG_MARKER_POSITION_INVALID));
             return false;
         }
         int ncomps = _cs.getNumComponents ();
         if (ncomps * 4 != bytesToEat) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_CRG_MARKER_SIZE_INVALID));
         }
         int[] horOffsets = new int[ncomps];

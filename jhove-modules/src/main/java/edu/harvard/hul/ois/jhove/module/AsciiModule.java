@@ -148,7 +148,7 @@ public class AsciiModule extends ModuleBase {
      * RepInfo.
      */
     @Override
-    public final int parse(InputStream stream, RepInfo info, int parseIndex)
+    public final int parse(InputStream stream, IRepInfo info, int parseIndex)
             throws IOException {
         // Test if textMD is to be generated
         if (_defaultParams != null) {
@@ -205,7 +205,7 @@ public class AsciiModule extends ModuleBase {
                             "Character = " + ((char) ch) + " (0x"
                                     + Integer.toHexString(ch) + ")", _nByte - 1);
                     info.setMessage(error);
-                    info.setWellFormed(RepInfo.FALSE);
+                    info.setWellFormed(IRepInfo.FALSE);
                     return 0;
                 }
                 /* Track what control characters are used. */
@@ -252,7 +252,7 @@ public class AsciiModule extends ModuleBase {
          */
         if (_nByte == 0) {
             info.setMessage(new ErrorMessage(ERR_CHAR_INV));
-            info.setWellFormed(RepInfo.FALSE);
+            info.setWellFormed(IRepInfo.FALSE);
             return 0;
         }
 
@@ -343,7 +343,7 @@ public class AsciiModule extends ModuleBase {
      *            results of the test
      */
     @Override
-    public void checkSignatures(File file, InputStream stream, RepInfo info)
+    public void checkSignatures(File file, InputStream stream, IRepInfo info)
             throws IOException {
         info.setFormat(_format[0]);
         info.setMimeType(_mimeType[0]);

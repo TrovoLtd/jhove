@@ -35,7 +35,7 @@ public class AssocDataListChunk extends Superchunk {
         ModuleBase module,
         ChunkHeader hdr,
         DataInputStream dstrm,
-        RepInfo info) {
+        IRepInfo info) {
         super(module, hdr, dstrm, info);
     }
 
@@ -46,7 +46,7 @@ public class AssocDataListChunk extends Superchunk {
      *            is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         
         // The chunk has a type ID, which is always "adtl".  Presumably

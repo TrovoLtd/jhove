@@ -39,7 +39,7 @@ public class PaletteBox extends JP2Box {
      */
     public boolean readBox() throws IOException {
         if (!(_parentBox instanceof JP2HeaderBox)) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_IMAGE_HEADER_BOX_CONTEXT_INVALID,
                  _module.getFilePos ()));
             return false;
@@ -53,10 +53,10 @@ public class PaletteBox extends JP2Box {
         int ne = _module.readUnsignedShort (_dstrm);
         // 2 bytes have been read
         if (ne < 1 || ne > 1024) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_PALETTE_BOX_NUMBER_OF_ENTRIES_INVALID,
                  _module.getFilePos()));
-            _repInfo.setValid (false);  // But keep going anyway
+            _I_repInfo.setValid (false);  // But keep going anyway
         }
         Property[] subProp = new Property[4];
         subProp[0] = new Property ("Entries", PropertyType.INTEGER,

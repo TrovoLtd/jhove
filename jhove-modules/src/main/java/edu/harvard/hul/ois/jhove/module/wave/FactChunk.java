@@ -5,10 +5,7 @@
 
 package edu.harvard.hul.ois.jhove.module.wave;
 
-import edu.harvard.hul.ois.jhove.ModuleBase;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 import edu.harvard.hul.ois.jhove.module.WaveModule;
 import edu.harvard.hul.ois.jhove.module.iff.Chunk;
 import edu.harvard.hul.ois.jhove.module.iff.ChunkHeader;
@@ -47,7 +44,7 @@ public class FactChunk extends Chunk {
      * @return   <code>false</code> if the chunk is structurally invalid,
      *           otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
 
         WaveModule module = (WaveModule) _module;
 

@@ -79,7 +79,7 @@ public class BinaryFilterBox extends JP2Box {
                     uuidbuf));
         if (isGzip) {
             // report that we've left information unprocessed
-            _repInfo.setMessage(new InfoMessage
+            _I_repInfo.setMessage(new InfoMessage
                     (MessageConstants.INF_BINARY_FILTER_BOX_NOT_GZIP,
                      _module.getFilePos ()));
         }
@@ -113,7 +113,7 @@ public class BinaryFilterBox extends JP2Box {
             hdr.readHeader ();
             JP2Box box = JP2Box.boxMaker (hdr.getType (), _realParent);
             box.setModule(_module);
-            box.setRepInfo(_repInfo);
+            box.setRepInfo(_I_repInfo);
             box.setRandomAccessFile(_raf);
             box.setDataInputStream(boxStream);
             return box;

@@ -6,7 +6,6 @@
 package edu.harvard.hul.ois.jhove.module.wave;
 
 
-import edu.harvard.hul.ois.jhove.RepInfo;
 import edu.harvard.hul.ois.jhove.module.iff.*;
 import edu.harvard.hul.ois.jhove.*;
 import edu.harvard.hul.ois.jhove.module.WaveModule;
@@ -45,7 +44,7 @@ public class CartChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         byte[] buf4 = new byte[4];
         ModuleBase.readByteBuf (_dstream, buf4, module);

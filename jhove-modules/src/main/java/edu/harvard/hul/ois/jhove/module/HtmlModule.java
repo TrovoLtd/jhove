@@ -255,7 +255,7 @@ public class HtmlModule extends ModuleBase {
      *            again with <code>parseIndex</code> equal to that return value.
      */
     @Override
-    public int parse(InputStream stream, RepInfo info, int parseIndex)
+    public int parse(InputStream stream, IRepInfo info, int parseIndex)
             throws IOException {
         if (parseIndex != 0) {
             // Coming in with parseIndex = 1 indicates that we've determined
@@ -500,7 +500,7 @@ public class HtmlModule extends ModuleBase {
             info.setWellFormed(false);
         }
 
-        if (info.getWellFormed() == RepInfo.FALSE) {
+        if (info.getWellFormed() == IRepInfo.FALSE) {
             return 0;
         }
 
@@ -555,7 +555,7 @@ public class HtmlModule extends ModuleBase {
      *            results of the test
      */
     @Override
-    public void checkSignatures(File file, InputStream stream, RepInfo info)
+    public void checkSignatures(File file, InputStream stream, IRepInfo info)
             throws IOException {
         info.setFormat(_format[0]);
         info.setMimeType(_mimeType[0]);

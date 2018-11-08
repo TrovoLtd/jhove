@@ -470,7 +470,7 @@ public class JhoveBase {
             // We may get an exception on Windows paths,
             // if so then fall through and try for a file.
         }
-        RepInfo info = new RepInfo(dirFileOrUri);
+        IRepInfo info = new RepInfo(dirFileOrUri);
         if (uri != null && uri.isAbsolute()) {
             URL url = null;
             try {
@@ -544,12 +544,12 @@ public class JhoveBase {
             if (!file.exists()) {
                 _logger.info("File not found");
                 info.setMessage(new ErrorMessage(CoreMessageConstants.ERR_FILE_NOT_FOUND));
-                info.setWellFormed(RepInfo.UNDETERMINED);
+                info.setWellFormed(IRepInfo.UNDETERMINED);
                 info.show(handler);
             } else if (!file.isFile() || !file.canRead()) {
                 _logger.info("File cannot be read");
                 info.setMessage(new ErrorMessage(CoreMessageConstants.ERR_FILE_READ));
-                info.setWellFormed(RepInfo.UNDETERMINED);
+                info.setWellFormed(IRepInfo.UNDETERMINED);
                 info.show(handler);
             } else if (handler.okToProcess(dirFileOrUri)) {
                 info.setSize(file.length());
@@ -569,7 +569,7 @@ public class JhoveBase {
                         }
                     } catch (Exception e) {
                         info.setMessage(new ErrorMessage(CoreMessageConstants.EXC_UNEXPECTED));
-                        info.setWellFormed(RepInfo.UNDETERMINED);
+                        info.setWellFormed(IRepInfo.UNDETERMINED);
                         _logger.log(Level.SEVERE, CoreMessageConstants.EXC_UNEXPECTED, e);
                     }
                 } else {
@@ -585,7 +585,7 @@ public class JhoveBase {
                                 if (!processFile(app, mod, false, file, infc)) {
                                     return false;
                                 }
-                                if (infc.getWellFormed() == RepInfo.TRUE) {
+                                if (infc.getWellFormed() == IRepInfo.TRUE) {
                                     info.copy(infc);
                                     break;
                                 }
@@ -619,7 +619,7 @@ public class JhoveBase {
      * interrupted asynchronously by calling <code>abort</code>, in which
      * case it will delete the temporary file and return <code>null</code>.
      */
-    public File connToTempFile(URLConnection conn, RepInfo info)
+    public File connToTempFile(URLConnection conn, IRepInfo info)
             throws IOException {
 
         File tempFile;
@@ -758,7 +758,7 @@ public class JhoveBase {
      * the module doesn't have the validation feature.
      */
     public boolean processFile(App app, Module module, boolean verbose,
-            File file, RepInfo info) throws Exception {
+            File file, IRepInfo info) throws Exception {
 
         if (!module.hasFeature("edu.harvard.hul.ois.jhove.canValidate")) {
             return false;

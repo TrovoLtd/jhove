@@ -50,19 +50,19 @@ public class ROIBox extends JP2Box {
             List roiPropList = new ArrayList (7);
             int incs = ModuleBase.readUnsignedByte (_dstrm, _module);
             if (incs > 1) {
-                _repInfo.setMessage (new ErrorMessage 
+                _I_repInfo.setMessage (new ErrorMessage
                         (baddata, _module.getFilePos ()));
-                _repInfo.setValid (false);
+                _I_repInfo.setValid (false);
             }
             roiPropList.add (_module.addIntegerProperty("InCodestream",
                         incs, JP2Strings.inCodestreamStr));
             
             int rtyp = ModuleBase.readUnsignedByte (_dstrm, _module);
             if (rtyp > 1) {
-                _repInfo.setMessage (new ErrorMessage 
+                _I_repInfo.setMessage (new ErrorMessage
                         (MessageConstants.ERR_ROI_BOX_REGION_TYPE_INVALID,
                          _module.getFilePos ()));
-                _repInfo.setValid (false);
+                _I_repInfo.setValid (false);
             }
             roiPropList.add (_module.addIntegerProperty("RegionType",
                         rtyp, JP2Strings.roiTypeStr));

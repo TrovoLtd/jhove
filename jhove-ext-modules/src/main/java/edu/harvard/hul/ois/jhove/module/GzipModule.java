@@ -8,6 +8,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.harvard.hul.ois.jhove.*;
 import org.jwat.common.ByteCountingPushBackInputStream;
 import org.jwat.common.Diagnosis;
 import org.jwat.common.Diagnostics;
@@ -16,25 +17,7 @@ import org.jwat.common.RandomAccessFileInputStream;
 import org.jwat.gzip.GzipEntry;
 import org.jwat.gzip.GzipReader;
 
-import edu.harvard.hul.ois.jhove.Agent;
 import edu.harvard.hul.ois.jhove.Agent.Builder;
-import edu.harvard.hul.ois.jhove.AgentType;
-import edu.harvard.hul.ois.jhove.Document;
-import edu.harvard.hul.ois.jhove.DocumentType;
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.ExternalSignature;
-import edu.harvard.hul.ois.jhove.Identifier;
-import edu.harvard.hul.ois.jhove.IdentifierType;
-import edu.harvard.hul.ois.jhove.InfoMessage;
-import edu.harvard.hul.ois.jhove.JhoveException;
-import edu.harvard.hul.ois.jhove.ModuleBase;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyArity;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
-import edu.harvard.hul.ois.jhove.Signature;
-import edu.harvard.hul.ois.jhove.SignatureType;
-import edu.harvard.hul.ois.jhove.SignatureUseType;
 import edu.harvard.hul.ois.jhove.module.gzip.GzipEntryProperties;
 import edu.harvard.hul.ois.jhove.module.gzip.MessageConstants;
 
@@ -135,7 +118,7 @@ public class GzipModule extends ModuleBase {
     @Override
     public void checkSignatures (File file,
             InputStream stream, 
-            RepInfo info) 
+            IRepInfo info)
     throws IOException  {
         info.setFormat (_format[0]);
         info.setMimeType (_mimeType[0]);
@@ -153,20 +136,20 @@ public class GzipModule extends ModuleBase {
     @Override
     public void checkSignatures (File file,
             RandomAccessFile raf, 
-            RepInfo info) throws IOException {
+            IRepInfo info) throws IOException {
         InputStream stream = new RandomAccessFileInputStream(raf);
         checkSignatures(file, stream, info);
         stream.close();
     }
     
     @Override
-    public void parse(RandomAccessFile file, RepInfo info) throws IOException {
+    public void parse(RandomAccessFile file, IRepInfo info) throws IOException {
         InputStream stream = new RandomAccessFileInputStream(file);
         parse(stream, info, 0);
     }
 
     @Override
-    public int parse(InputStream stream, RepInfo info, int parseIndex) throws IOException {
+    public int parse(InputStream stream, IRepInfo info, int parseIndex) throws IOException {
         GzipReader reader = new GzipReader(new InputStreamNoSkip(stream), 8192);
         try {
             info.setFormat(_format[0]);
@@ -236,26 +219,26 @@ public class GzipModule extends ModuleBase {
     /**
      * Reports the results of the characterization.
      * @param reader The GZIP reader, which has read the GZIP-file. 
-     * @param repInfo The representation info, where to report the results.
+     * @param IRepInfo The representation info, where to report the results.
      * @throws JhoveException
      * @throws IOException
      */
-    private void reportResults(GzipReader reader, RepInfo repInfo) throws JhoveException, IOException {
+    private void reportResults(GzipReader reader, IRepInfo IRepInfo) throws JhoveException, IOException {
         Diagnostics<Diagnosis> diagnostics = reader.diagnostics;
         if (diagnostics.hasErrors()) {
             for (Diagnosis d : diagnostics.getErrors()) {
-                repInfo.setMessage(new ErrorMessage(extractDiagnosisType(d), extractDiagnosisMessage(d)));
+                IRepInfo.setMessage(new ErrorMessage(extractDiagnosisType(d), extractDiagnosisMessage(d)));
             }
-            repInfo.setConsistent(false);
+            IRepInfo.setConsistent(false);
         }
         if (diagnostics.hasWarnings()) {
             // Report warnings on source object.
             for (Diagnosis d : diagnostics.getWarnings()) {
-                repInfo.setMessage(new InfoMessage(extractDiagnosisType(d), extractDiagnosisMessage(d)));
+                IRepInfo.setMessage(new InfoMessage(extractDiagnosisType(d), extractDiagnosisMessage(d)));
             }
         }
-        repInfo.setProperty(new Property("Records", PropertyType.PROPERTY, PropertyArity.LIST, entryProperties));
-        repInfo.setSize(reader.getConsumed());
+        IRepInfo.setProperty(new Property("Records", PropertyType.PROPERTY, PropertyArity.LIST, entryProperties));
+        IRepInfo.setSize(reader.getConsumed());
     }
     
     /**

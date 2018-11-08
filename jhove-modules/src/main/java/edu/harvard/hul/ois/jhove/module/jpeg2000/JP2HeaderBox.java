@@ -41,12 +41,12 @@ public class JP2HeaderBox extends JP2Box {
         hasBoxes = true;
         //int sizeLeft = (int) _boxHeader.getDataLength ();
         if (_module.isJP2HdrSeen ()) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                         (MessageConstants.ERR_JP2_HEADER_BOX_REDUNDANT,
                          _module.getFilePos ()));
             // Skip the redundant box and set invalid flag,
             // but keep going.
-            _repInfo.setValid (false);
+            _I_repInfo.setValid (false);
             if (_boxHeader.getLength () != 0) {
                 _module.skipBytes (_dstrm, 
                     (int) _boxHeader.getDataLength (), 
@@ -98,10 +98,10 @@ public class JP2HeaderBox extends JP2Box {
                     }
                 }
                 else {
-                    _repInfo.setMessage (new ErrorMessage
+                    _I_repInfo.setMessage (new ErrorMessage
                         (MessageConstants.ERR_JP2_HEADER_BOX_START_INVALID, 
                                 _module.getFilePos ()));
-                    _repInfo.setWellFormed (false);
+                    _I_repInfo.setWellFormed (false);
                     return false;
                 }
             }
@@ -131,16 +131,16 @@ public class JP2HeaderBox extends JP2Box {
         
         // Consistency checks
         if (hasCMap && !hasPalette) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_JP2_HEADER_BOX_PALETTE_MISSING,
                  _module.getFilePos ()));
-            _repInfo.setValid (false);
+            _I_repInfo.setValid (false);
         }
         if (!hasCMap && hasPalette) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_JP2_HEADER_BOX_COMPONENT_MISSING,
                  _module.getFilePos ()));
-            _repInfo.setValid (false);
+            _I_repInfo.setValid (false);
         }
         // If there were any Associations, add a property for them.
         Property a = makeAssocProperty ();

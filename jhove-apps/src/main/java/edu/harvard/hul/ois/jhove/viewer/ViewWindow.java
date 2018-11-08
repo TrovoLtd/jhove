@@ -32,7 +32,7 @@ import edu.harvard.hul.ois.jhove.*;
  */
 public class ViewWindow extends InfoWindow {
 
-    private java.util.List<RepInfo> _info;
+    private java.util.List<IRepInfo> _info;
     private JMenuItem _closeAllItem;
     private ActionListener _closeAllListener;
     private DefaultMutableTreeNode _rootNode;
@@ -58,7 +58,7 @@ public class ViewWindow extends InfoWindow {
                 }
             });
 
-        _info = new LinkedList<RepInfo> ();        
+        _info = new LinkedList<IRepInfo> ();
         // The root element should no longer be a 
         // RepTreeRoot, but some other flavor of 
         // DefaultMutableTreeNode.  It will have RepTreeRoots
@@ -109,7 +109,7 @@ public class ViewWindow extends InfoWindow {
      *  tree.  The RepInfo object is saved into a list so that 
      *  the window contents can be saved to a file later.
      */
-    public void addRepInfo (RepInfo info, App app, JhoveBase base)
+    public void addRepInfo (IRepInfo info, App app, JhoveBase base)
     {
         _info.add (info);
         RepTreeRoot node = new RepTreeRoot (info, app, base);
@@ -141,9 +141,9 @@ public class ViewWindow extends InfoWindow {
             handler.reset ();
             handler.setWriter (wtr);
             handler.showHeader ();
-            Iterator<RepInfo> iter =  _info.iterator ();
+            Iterator<IRepInfo> iter =  _info.iterator ();
             while (iter.hasNext ()) {
-                RepInfo info = (RepInfo) iter.next ();
+                IRepInfo info = iter.next ();
                 handler.show (info);
             }
             handler.showFooter ();

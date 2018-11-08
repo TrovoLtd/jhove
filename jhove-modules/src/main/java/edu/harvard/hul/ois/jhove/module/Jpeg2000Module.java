@@ -309,7 +309,7 @@ public class Jpeg2000Module extends ModuleBase {
      *            with each call.
      */
     @Override
-    public final void parse(RandomAccessFile raf, RepInfo info)
+    public final void parse(RandomAccessFile raf, IRepInfo info)
             throws IOException {
         initParse();
         _rafStream = new RAFInputStream(raf, _je != null ? _je.getBufferSize()
@@ -361,7 +361,7 @@ public class Jpeg2000Module extends ModuleBase {
             return;
         }
 
-        if (info.getWellFormed() == RepInfo.FALSE) {
+        if (info.getWellFormed() == IRepInfo.FALSE) {
             return;
         }
 
@@ -379,11 +379,11 @@ public class Jpeg2000Module extends ModuleBase {
         }
 
         // Reader Requirements box is mandatory for JPX
-        if (!rreqSeen || info.getValid() != RepInfo.TRUE) {
+        if (!rreqSeen || info.getValid() != IRepInfo.TRUE) {
             jpxCompliant = false;
         }
         if (!imageHeaderSeen || !colorSpecSeen
-                || info.getValid() != RepInfo.TRUE) {
+                || info.getValid() != IRepInfo.TRUE) {
             jp2Compliant = false;
         }
         if (jp2Compliant) {
@@ -714,7 +714,7 @@ public class Jpeg2000Module extends ModuleBase {
      * must pass a stream to every box function, to allow these multiple
      * sources.
      */
-    protected boolean readBoxes(RepInfo info) throws IOException {
+    protected boolean readBoxes(IRepInfo info) throws IOException {
         // From here on, boxes may occur with some freedom
         // of order. Apparently the only indication that
         // we're done is an end-of-file condition.
@@ -740,7 +740,7 @@ public class Jpeg2000Module extends ModuleBase {
      * the file type box, and reads its header. If we get something other than a
      * file type box, the file is not well-formed.
      */
-    protected boolean readFileTypeBox(RepInfo info) throws IOException {
+    protected boolean readFileTypeBox(IRepInfo info) throws IOException {
         BoxHeader hdr = new BoxHeader(this, _dstream);
         hdr.readHeader();
         // 8 bytes have been read
@@ -768,7 +768,7 @@ public class Jpeg2000Module extends ModuleBase {
      * This is called for any box that isn't recognized, or by placeholder
      * methods for boxes that haven't yet been coded.
      */
-    protected boolean skipOverBox(BoxHeader hdr, RepInfo info,
+    protected boolean skipOverBox(BoxHeader hdr, IRepInfo info,
             DataInputStream dstrm) throws IOException {
         if (hdr.getLength() != 0) {
             skipBytes(dstrm, (int) hdr.getDataLength(), this);

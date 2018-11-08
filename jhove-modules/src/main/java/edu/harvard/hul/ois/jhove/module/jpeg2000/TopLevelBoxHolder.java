@@ -5,7 +5,7 @@
 
 package edu.harvard.hul.ois.jhove.module.jpeg2000;
 
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import edu.harvard.hul.ois.jhove.module.Jpeg2000Module;
 import java.io.*;
 
@@ -26,13 +26,13 @@ public class TopLevelBoxHolder extends BoxHolder {
      */
     public TopLevelBoxHolder(Jpeg2000Module module,
             RandomAccessFile raf, 
-            RepInfo info,
+            IRepInfo info,
             DataInputStream dstream) 
     {
         super(raf);
         _module = module;
         _dstrm = dstream;
-        _repInfo = info;
+        _I_repInfo = info;
         eof = false;
         hasBoxes = true;
         bytesLeft = Long.MAX_VALUE;

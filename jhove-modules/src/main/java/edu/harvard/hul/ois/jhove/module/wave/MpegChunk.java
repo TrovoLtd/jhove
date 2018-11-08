@@ -7,7 +7,6 @@ package edu.harvard.hul.ois.jhove.module.wave;
 
 import java.io.IOException;
 
-import edu.harvard.hul.ois.jhove.RepInfo;
 import edu.harvard.hul.ois.jhove.module.iff.*;
 import edu.harvard.hul.ois.jhove.*;
 import edu.harvard.hul.ois.jhove.module.WaveModule;
@@ -43,7 +42,7 @@ public class MpegChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         int soundInformation = module.readUnsignedShort(_dstream);
         int frameSize = module.readUnsignedShort (_dstream);

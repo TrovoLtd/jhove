@@ -247,7 +247,7 @@ public class TextHandler
     /**
      *  Outputs the information contained in a RepInfo object
      */
-    public void show (RepInfo info)
+    public void show (IRepInfo info)
     {
         String margin = getIndent (++_level);
 
@@ -284,11 +284,11 @@ public class TextHandler
         if (!_je.getSignatureFlag ()) {
             _writer.print (margin + " Status: ");
             switch (info.getWellFormed ()) {
-                case RepInfo.TRUE:
+                case IRepInfo.TRUE:
                 s = "Well-Formed";
                 break;
 
-                case RepInfo.FALSE:
+                case IRepInfo.FALSE:
                 s = "Not well-formed";
                 break;
 
@@ -296,14 +296,14 @@ public class TextHandler
                 s = "Unknown";
                 break;
             }
-            if (info.getWellFormed () == RepInfo.TRUE) {
+            if (info.getWellFormed () == IRepInfo.TRUE) {
                 switch (info.getValid ()) {
 
-                    case RepInfo.TRUE:
+                    case IRepInfo.TRUE:
                     s += " and valid";
                     break;
 
-                    case RepInfo.FALSE:
+                    case IRepInfo.FALSE:
                     s += ", but not valid";
                     break;
 
@@ -316,7 +316,7 @@ public class TextHandler
             // If we aren't checking signatures, we still need to say something.
             _writer.print (margin + " Status: ");
             switch (info.getWellFormed ()) {
-                case RepInfo.TRUE:
+                case IRepInfo.TRUE:
                     s = "Well-Formed";
                     break;
 

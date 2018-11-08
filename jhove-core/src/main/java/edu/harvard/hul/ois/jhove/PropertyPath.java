@@ -95,7 +95,7 @@ public class PropertyPath {
      * 
      *   @return  The specified Property if found, otherwise null.
      */
-    public Property locateProperty (RepInfo info)
+    public Property locateProperty (IRepInfo info)
     {
         return locateProperty (info, false);
     }
@@ -110,7 +110,7 @@ public class PropertyPath {
      * 
      *   @return  The specified Property if found, otherwise null.
      */
-    public Property locateProperty (RepInfo info, boolean trace)
+    public Property locateProperty (IRepInfo info, boolean trace)
     {
         if (pathInfo.isEmpty ()) {
             // An empty path can't reach any property

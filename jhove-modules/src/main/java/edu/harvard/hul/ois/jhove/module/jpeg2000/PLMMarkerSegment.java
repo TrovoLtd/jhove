@@ -67,7 +67,7 @@ public class PLMMarkerSegment extends MarkerSegment {
                 int pkByte = ModuleBase.readUnsignedByte (_dstream, _module);
                 if (--bytesToEat < 0) {
                     // bytes of a number can't cross marker segment boundaries
-                    _repInfo.setMessage (new ErrorMessage
+                    _I_repInfo.setMessage (new ErrorMessage
                             (MessageConstants.ERR_PLM_MARKER_PACKET_SIZE_INVALID));
                     return false;
                 }

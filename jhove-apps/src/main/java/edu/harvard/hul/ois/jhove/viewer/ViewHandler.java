@@ -84,7 +84,7 @@ public class ViewHandler extends HandlerBase {
      *  I need to break out part of the ViewWindow code to here so
      *  it can produce the output for one file.
      */
-    public void show (RepInfo info)
+    public void show (IRepInfo info)
     {
         _viewWin.addRepInfo (info, _app, _base);
         ++nDocs;

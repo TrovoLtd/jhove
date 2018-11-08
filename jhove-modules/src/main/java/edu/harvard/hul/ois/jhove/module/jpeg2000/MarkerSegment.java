@@ -44,7 +44,7 @@ public abstract class MarkerSegment {
     protected Codestream _cs;
     protected Jpeg2000Module _module;
     protected DataInputStream _dstream;
-    protected RepInfo _repInfo;
+    protected IRepInfo _I_repInfo;
 
     /**
      *  Constructor.
@@ -87,9 +87,9 @@ public abstract class MarkerSegment {
     }
     
     /** Sets the RepInfo into which messages may be placed. */
-    public void setRepInfo (RepInfo repInfo)
+    public void setRepInfo (IRepInfo IRepInfo)
     {
-        _repInfo = repInfo;
+        _I_repInfo = IRepInfo;
     }
     
     /** Returns <code>true</code> if this segment is a Marker.

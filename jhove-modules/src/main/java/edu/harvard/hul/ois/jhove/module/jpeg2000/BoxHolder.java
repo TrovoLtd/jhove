@@ -23,7 +23,7 @@ public class BoxHolder implements Iterator<Object> {
     protected RandomAccessFile _raf;
     protected DataInputStream _dstrm;
     protected BoxHeader _boxHeader;
-    protected RepInfo _repInfo;
+    protected IRepInfo _I_repInfo;
     protected long bytesLeft;
     protected long filePos;
     protected boolean hasBoxes;
@@ -137,7 +137,7 @@ public class BoxHolder implements Iterator<Object> {
             nextBox = JP2Box.boxMaker(hType, this);
 
             nextBox.setModule(_module);
-            nextBox.setRepInfo(_repInfo);
+            nextBox.setRepInfo(_I_repInfo);
             nextBox.setRandomAccessFile(_raf);
             nextBox.setDataInputStream(_dstrm);
             nextBox.setBoxHeader (subhdr);
@@ -162,10 +162,10 @@ public class BoxHolder implements Iterator<Object> {
      */
     protected void superboxOverrun ()
     {
-        _repInfo.setMessage (new ErrorMessage 
+        _I_repInfo.setMessage (new ErrorMessage
             (MessageConstants.ERR_SUPERBOX_OVERRUN + getSelfPropName (), 
              _module.getFilePos ()));
-        _repInfo.setWellFormed (false);
+        _I_repInfo.setWellFormed (false);
     }
 
 
@@ -175,10 +175,10 @@ public class BoxHolder implements Iterator<Object> {
      */
     protected void superboxUnderrun ()
     {
-        _repInfo.setMessage (new ErrorMessage 
+        _I_repInfo.setMessage (new ErrorMessage
             (MessageConstants.ERR_SUPERBOX_UNDERRUN + getSelfPropName (), 
              _module.getFilePos ()));
-        _repInfo.setWellFormed (false);
+        _I_repInfo.setWellFormed (false);
     }
 
 

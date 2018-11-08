@@ -1,7 +1,7 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 //import edu.harvard.hul.ois.jhove.module.png.PNGChunk.ChunkType;
 
 public class IendChunk extends PNGChunk {
@@ -13,7 +13,7 @@ public class IendChunk extends PNGChunk {
 		ancillary = false;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		_module.setIendSeen(true);
 		// This chunk is supposed to have a length of 0.

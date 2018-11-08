@@ -209,7 +209,7 @@ public interface Module
      *                    called again with <code>parseIndex</code> 
      *                    equal to that return value.
      */
-    public int parse (InputStream stream, RepInfo info, int parseIndex)
+    public int parse (InputStream stream, IRepInfo info, int parseIndex)
     throws IOException;
 
     /**
@@ -223,7 +223,7 @@ public interface Module
      *   @param info      A fresh RepInfo object which will be modified
      *                    to reflect the results of the parsing
      */
-    public void parse (RandomAccessFile file, RepInfo info)
+    public void parse (RandomAccessFile file, IRepInfo info)
         throws IOException;
 
     /**
@@ -238,7 +238,7 @@ public interface Module
      */
     public void checkSignatures (File file,
                 InputStream stream, 
-                RepInfo info)
+                IRepInfo info)
         throws IOException;
 
     /**
@@ -253,7 +253,7 @@ public interface Module
      */
     public void checkSignatures (File file, 
             RandomAccessFile raf, 
-            RepInfo info)
+            IRepInfo info)
         throws IOException;
 
 	/**

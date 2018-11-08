@@ -1,9 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The hIST (Histogram) chunk */
 public class HistChunk extends PNGChunk {
@@ -18,7 +15,7 @@ public class HistChunk extends PNGChunk {
 	
 	/** Process the data in the chunk. All we do is note the
 	 *  presence of the chunk in a property.  */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad hIST chunk";
 		processChunkCommon(info);
 		ErrorMessage msg = null;

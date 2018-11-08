@@ -38,13 +38,13 @@ public class PPTMarkerSegment extends MarkerSegment {
     protected boolean process(int bytesToEat) throws IOException 
     {
         if (_ccs.isPPMSeen ()) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_PPT_MARKER_WITH_PPM_MARKER));
             return false;
         }
         Tile tile = _ccs.getCurTile ();
         if (tile == null ) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_PPT_MARKER_POSITION_INVALID));
             return false;
         }
@@ -56,7 +56,7 @@ public class PPTMarkerSegment extends MarkerSegment {
             long nppt = _module.readUnsignedInt (_dstream);
             bytesToEat -= 4;
             if (nppt > bytesToEat) {
-                _repInfo.setMessage(new ErrorMessage 
+                _I_repInfo.setMessage(new ErrorMessage
                         (MessageConstants.ERR_PPM_MARKER_TILE_PART_HEADER_SIZE_INVALID));
                 return false;
             }

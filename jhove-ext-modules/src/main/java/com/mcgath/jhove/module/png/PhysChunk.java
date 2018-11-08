@@ -1,9 +1,6 @@
 package com.mcgath.jhove.module.png;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The pHYS chunk, which indicates pixel aspect ratio or size.
  * 
@@ -21,7 +18,7 @@ public class PhysChunk extends PNGChunk {
 	/** Process the data in the chunk.
 	 *  
 	 */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badChunk = "Bad pHYS chunk";
 		processChunkCommon(info);
 		ErrorMessage msg = null;

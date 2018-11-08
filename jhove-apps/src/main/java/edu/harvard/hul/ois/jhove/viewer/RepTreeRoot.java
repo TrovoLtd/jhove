@@ -21,7 +21,7 @@ public class RepTreeRoot extends DefaultMutableTreeNode
      * PRIVATE INSTANCE FIELDS.
      ******************************************************************/
 
-    private RepInfo _info;
+    private IRepInfo _info;
     private Property _repProp;
     private App _app;
     private JhoveBase _base;
@@ -37,7 +37,7 @@ public class RepTreeRoot extends DefaultMutableTreeNode
      *               be displayed.
      *  @param app   The App object under which we're operating.
      */
-    public RepTreeRoot (RepInfo info, App app, JhoveBase base) 
+    public RepTreeRoot (IRepInfo info, App app, JhoveBase base)
     {
         super (info.getUri());
         _info = info;
@@ -263,22 +263,23 @@ public class RepTreeRoot extends DefaultMutableTreeNode
         }
         String wfStr;
         switch (_info.getWellFormed ()) {
-            case RepInfo.TRUE:
-                wfStr = "Well-Formed";                break;
-            case RepInfo.FALSE:
+            case IRepInfo.TRUE:
+                wfStr = "Well-Formed";
+                break;
+            case IRepInfo.FALSE:
                 wfStr = "Not well-formed";
                 break;
             default:
                 wfStr = "Unknown";
                 break;
         }
-        if (_info.getWellFormed () == RepInfo.TRUE) {
+        if (_info.getWellFormed () == IRepInfo.TRUE) {
             switch (_info.getValid ()) {
-                case RepInfo.TRUE:
+                case IRepInfo.TRUE:
                 wfStr += " and valid";
                 break;
             
-                case RepInfo.FALSE:
+                case IRepInfo.FALSE:
                 wfStr += ", but not valid";
                 break;
                 

@@ -162,8 +162,8 @@ public class GPSInfoIFD
      * @param raf TIFF file
      * @param bigEndian True if big-endian file
      */
-    public GPSInfoIFD (long offset, RepInfo info, RandomAccessFile raf,
-		       boolean bigEndian)
+    public GPSInfoIFD (long offset, IRepInfo info, RandomAccessFile raf,
+                       boolean bigEndian)
     {
 	super (offset, info, raf, bigEndian);
 

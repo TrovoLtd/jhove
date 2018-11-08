@@ -44,7 +44,7 @@ public final class PdfInvalidException extends PdfException
      *  object.  For a PdfInvalidException, this is to call 
      *  <code>setValid (false)</code>.
      */
-    public void disparage (RepInfo info) 
+    public void disparage (IRepInfo info)
     {
         info.setValid (false);
     }

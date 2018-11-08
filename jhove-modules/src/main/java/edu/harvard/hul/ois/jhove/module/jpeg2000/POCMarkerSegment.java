@@ -40,7 +40,7 @@ public class POCMarkerSegment extends MarkerSegment {
     protected boolean process(int bytesToEat) throws IOException {
         int compIdxBytes =  nCompBytes();
         if (compIdxBytes == 0) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_POC_MARKER_POSITION_INVALID));
             // POC found before SIZ
             return false;
@@ -51,7 +51,7 @@ public class POCMarkerSegment extends MarkerSegment {
         int nChanges = bytesToEat / changeSize;
         // Make sure it's an even multiple
         if (changeSize * nChanges != bytesToEat) {
-            _repInfo.setMessage (new ErrorMessage 
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_POC_MARKER_SIZE_INVALID));
             return false;
         }

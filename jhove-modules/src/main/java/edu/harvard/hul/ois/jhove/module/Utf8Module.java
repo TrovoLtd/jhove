@@ -169,7 +169,7 @@ public class Utf8Module extends ModuleBase {
      *
      */
     @Override
-    public final int parse(InputStream stream, RepInfo info, int parseIndex)
+    public final int parse(InputStream stream, IRepInfo info, int parseIndex)
             throws IOException {
         // Test if textMD is to be generated
         if (_defaultParams != null) {
@@ -236,7 +236,7 @@ public class Utf8Module extends ModuleBase {
                 b[0] = readUnsignedByte(_dstream, this);
                 if (_nByte < 4) {
                     isMark = checkMark(b[0], info);
-                    if (info.getWellFormed() == RepInfo.FALSE) {
+                    if (info.getWellFormed() == IRepInfo.FALSE) {
                         return 0;
                     }
                     if (isMark) {
@@ -266,7 +266,7 @@ public class Utf8Module extends ModuleBase {
                     if (_nByte < 4) {
                         isMark = checkMark(b[i], info);
                     }
-                    if (info.getWellFormed() == RepInfo.FALSE) {
+                    if (info.getWellFormed() == IRepInfo.FALSE) {
                         return 0;
                     }
 
@@ -347,7 +347,7 @@ public class Utf8Module extends ModuleBase {
          */
         if (_nByte == 0) {
             info.setMessage(new ErrorMessage(Utf8MessageConstants.ERR_ZERO_LENGTH_FILE));
-            info.setWellFormed(RepInfo.FALSE);
+            info.setWellFormed(IRepInfo.FALSE);
             return 0;
         }
 
@@ -441,7 +441,7 @@ public class Utf8Module extends ModuleBase {
      *            results of the test
      */
     @Override
-    public void checkSignatures(File file, InputStream stream, RepInfo info)
+    public void checkSignatures(File file, InputStream stream, IRepInfo info)
             throws IOException {
         info.setFormat(_format[0]);
         info.setMimeType(_mimeType[0]);
@@ -461,7 +461,7 @@ public class Utf8Module extends ModuleBase {
                 ++bytesRead;
                 if (_nByte < 4) {
                     checkMark(b[0], info);
-                    if (info.getWellFormed() == RepInfo.FALSE) {
+                    if (info.getWellFormed() == IRepInfo.FALSE) {
                         return;
                     }
                 }
@@ -482,7 +482,7 @@ public class Utf8Module extends ModuleBase {
                     if (_nByte < 4) {
                         checkMark(b[i], info);
                     }
-                    if (info.getWellFormed() == RepInfo.FALSE) {
+                    if (info.getWellFormed() == IRepInfo.FALSE) {
                         return;
                     }
 
@@ -527,7 +527,7 @@ public class Utf8Module extends ModuleBase {
         }
     }
 
-    protected boolean checkMark(int byt, RepInfo info) {
+    protected boolean checkMark(int byt, IRepInfo info) {
         ErrorMessage msg;
         initialBytes[(int) _nByte - 1] = byt;
         if (_nByte == 3) {

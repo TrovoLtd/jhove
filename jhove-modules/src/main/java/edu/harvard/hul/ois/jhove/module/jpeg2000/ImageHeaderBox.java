@@ -36,17 +36,17 @@ public class ImageHeaderBox extends JP2Box {
      */
     public boolean readBox() throws IOException {
         if (!(_parentBox instanceof JP2HeaderBox)) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_IMAGE_HEADER_BOX_CONTEXT_INVALID,
                  _module.getFilePos ()));
             return false;
         }
         initBytesRead ();
         if (_boxHeader.getLength() != 22) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_IMAGE_HEADER_BOX_SIZE_INVALID,
                  _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
         }
         
@@ -68,7 +68,7 @@ public class ImageHeaderBox extends JP2Box {
         niso.setImageWidth (width);
         int nc = _module.readUnsignedShort (_dstrm);
         if (nc == 0) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_IMAGE_HEADER_BOX_COMPONENTS_EMPTY,
                      _module.getFilePos ()));
             return false;   

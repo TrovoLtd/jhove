@@ -39,7 +39,7 @@ public class InteroperabilityIFD
      * @param raf TIFF file
      * @param bigEndian True if big-endian file
      */
-    public InteroperabilityIFD (long offset, RepInfo info,
+    public InteroperabilityIFD (long offset, IRepInfo info,
 				RandomAccessFile raf, boolean bigEndian)
     {
 	super (offset, info, raf, bigEndian);

@@ -45,7 +45,7 @@ public class ObjectIdentifier
      *  that there is a module in the list (normally Bytestream
      *  at the end) which will always consider a file well-formed.
      */
-    public void identify (File file, RepInfo info, 
+    public void identify (File file, IRepInfo info,
 			  String parm, boolean verbose,
 			  boolean shortCheck) 
 	                 throws IOException 
@@ -107,7 +107,7 @@ public class ObjectIdentifier
 		*/
             continue;
 	    }
-	    if (info1.getWellFormed () == RepInfo.TRUE) {
+	    if (info1.getWellFormed () == IRepInfo.TRUE) {
                info.copy (info1);
                break;
 	    }

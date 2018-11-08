@@ -243,7 +243,7 @@ public class XmlModule
      *                    equal to that return value.
     */
     @Override
-    public int parse (InputStream stream, RepInfo info, int parseIndex)
+    public int parse (InputStream stream, IRepInfo info, int parseIndex)
        throws IOException
     {
         // Test if textMD is to be generated
@@ -501,7 +501,7 @@ public class XmlModule
                 canValidate) {
                 return 1;
             }
-            info.setValid (RepInfo.UNDETERMINED);
+            info.setValid (IRepInfo.UNDETERMINED);
             // This may get downgraded to false, but won't
             // be upgraded to true.
         }
@@ -940,7 +940,7 @@ public class XmlModule
             info.setValid (false);
         }
 
-        if (info.getWellFormed () == RepInfo.TRUE) {
+        if (info.getWellFormed () == IRepInfo.TRUE) {
             if (_xhtmlDoctype != null) {
                 info.setMimeType (_mimeType[2]);
             }
@@ -1006,7 +1006,7 @@ public class XmlModule
     @Override
     public void checkSignatures (File file,
                 InputStream stream,
-                RepInfo info)
+                IRepInfo info)
         throws IOException
     {
         _parseFromSig = false;
@@ -1056,7 +1056,7 @@ public class XmlModule
             stream = new FileInputStream (file);
             parseIndex = parse (stream, info, parseIndex);
         }
-        if (info.getWellFormed() == RepInfo.TRUE) {
+        if (info.getWellFormed() == IRepInfo.TRUE) {
             info.setSigMatch (_name);
         }
     }

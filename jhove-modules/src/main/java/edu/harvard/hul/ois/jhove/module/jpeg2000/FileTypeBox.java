@@ -70,10 +70,10 @@ public class FileTypeBox extends JP2Box {
         // on the box length.
         int ncomp = (((int) _boxHeader.getLength ()) - 16) / 4;
         if (ncomp < 1) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                         (MessageConstants.ERR_FILE_TYPE_BOX_COMPAT_LIST_EMPTY,
                          _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
         }
         List<String> compList = new ArrayList<String> (ncomp);
@@ -95,8 +95,8 @@ public class FileTypeBox extends JP2Box {
                     binflag = true;
                     if (!eflag) {
                         eflag = true;   // Avoid multiple report of same error
-                        _repInfo.setValid (false);
-                        _repInfo.setMessage (new ErrorMessage
+                        _I_repInfo.setValid (false);
+                        _I_repInfo.setMessage (new ErrorMessage
                             (MessageConstants.ERR_FILE_TYPE_BOX_COMPAT_ITEM_NON_ASCII,
                              _module.getFilePos ()));
                     }

@@ -167,7 +167,7 @@ public class AuditHandler
      *  Outputs the information contained in a RepInfo object
      * @param info Object representation information
      */
-    public void show (RepInfo info)
+    public void show (IRepInfo info)
     {
 	AuditState state = (AuditState) _stateStack.peek ();
 
@@ -188,7 +188,7 @@ public class AuditHandler
 	    }
 
 	    int valid = info.getValid ();
-	    if (valid == RepInfo.TRUE) {
+	    if (valid == IRepInfo.TRUE) {
 		state.setValid (state.getValid () + 1);
 		count.setValid (count.getValid () + 1);
 	    }
@@ -208,13 +208,13 @@ public class AuditHandler
      * @param info Object representation information
      * @param state Audit handler state
      */
-    public void showImpl (RepInfo info, AuditState state)
+    public void showImpl (IRepInfo info, AuditState state)
     {
 	String status = null;
 	String mime = info.getMimeType ();
 	if (mime != null) {
-	    if (info.getWellFormed () == RepInfo.TRUE) {
-		if (info.getValid () == RepInfo.TRUE) {
+	    if (info.getWellFormed () == IRepInfo.TRUE) {
+		if (info.getValid () == IRepInfo.TRUE) {
 		    status = "valid";
 		}
 		else {

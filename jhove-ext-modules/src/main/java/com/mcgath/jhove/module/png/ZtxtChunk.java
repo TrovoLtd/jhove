@@ -3,7 +3,7 @@ package com.mcgath.jhove.module.png;
 import java.util.zip.DataFormatException;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** Representation of the zTXt (compressed text) chunk */
 public class ZtxtChunk extends GeneralTextChunk {
@@ -16,7 +16,7 @@ public class ZtxtChunk extends GeneralTextChunk {
 		duplicateAllowed = true;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		final String badchunk = "Bad zTXt chunk";
 		processChunkCommon(info);
 		

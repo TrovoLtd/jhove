@@ -41,7 +41,7 @@ public class ApplicationChunk extends Chunk {
      *  @return   <code>false</code> if the chunk is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException 
+    public boolean readChunk(IRepInfo info) throws IOException
     {
         AiffModule module = (AiffModule) _module;
         String applicationSignature = module.read4Chars (_dstream);

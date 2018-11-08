@@ -3,10 +3,7 @@ package com.mcgath.jhove.module.png;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.Property;
-import edu.harvard.hul.ois.jhove.PropertyType;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.*;
 
 /** The tIME chunk, which gives the latest modified time. */
 public class TimeChunk extends PNGChunk {
@@ -22,7 +19,7 @@ public class TimeChunk extends PNGChunk {
 	/** The tIME chunk has the following: 2 bytes year (short),
 	 *  1 byte month, 1 byte day, 1 byte hour, 1 byte minute,
 	 *  1 byte second. It's supposed to be the UTC time. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		if (length < 7) {
 			ErrorMessage msg = new ErrorMessage("tIME chunk is too short");

@@ -18,7 +18,7 @@ import java.io.*;
 public class ChunkHeader {
 
     private ModuleBase _module;
-    private RepInfo _repInfo;
+    private IRepInfo _I_repInfo;
     private long _size;              // This does not include the 8 bytes of header
     private String _chunkID;         // 4-character ID of the chunk
     
@@ -28,10 +28,10 @@ public class ChunkHeader {
      *  @param  module   The module under which the chunk is being read
      *  @param  info     The RepInfo object being used by the module
      */
-    public ChunkHeader (ModuleBase module, RepInfo info)
+    public ChunkHeader (ModuleBase module, IRepInfo info)
     {
         _module = module;
-        _repInfo = info;
+        _I_repInfo = info;
     }
     
     
@@ -49,11 +49,11 @@ public class ChunkHeader {
                 if (hx.length () < 2) {
                     hx = "0" + hx;
                 }
-                _repInfo.setMessage (new ErrorMessage
+                _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_CHUNK_ID_CHAR_INV,
                      MessageConstants.ERR_CHUNK_ID_CHAR_SUB + hx,
                      _module.getNByte ()));
-                _repInfo.setWellFormed (false);
+                _I_repInfo.setWellFormed (false);
                 return false;
             }
             id.append((char) ch);

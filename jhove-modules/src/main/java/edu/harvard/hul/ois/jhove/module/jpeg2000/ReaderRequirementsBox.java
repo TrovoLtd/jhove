@@ -74,8 +74,8 @@ public class ReaderRequirementsBox extends JP2Box {
             break;
             
             default:
-            _repInfo.setMessage (new ErrorMessage (badRR, _module.getFilePos ()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setMessage (new ErrorMessage (badRR, _module.getFilePos ()));
+            _I_repInfo.setWellFormed (false);
             // System.out.println ("READBOX default");
             // System.out.flush ();
             return false;

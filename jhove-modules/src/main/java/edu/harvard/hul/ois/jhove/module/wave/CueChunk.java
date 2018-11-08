@@ -43,7 +43,7 @@ public class CueChunk extends Chunk {
      * @return   <code>false</code> if the chunk is structurally invalid,
      *           otherwise <code>true</code>
      */
-    public boolean readChunk(RepInfo info) throws IOException {
+    public boolean readChunk(IRepInfo info) throws IOException {
         WaveModule module = (WaveModule) _module;
         int nPoints = (int) module.readUnsignedInt(_dstream);
         List<Property> points = new ArrayList<Property>(nPoints);

@@ -1,7 +1,7 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** Representation of the PLTE chunk
  */
@@ -14,7 +14,7 @@ public class PlteChunk extends PNGChunk {
 		ancillary = false;
 	}
 	
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		ErrorMessage msg = null;
 		processChunkCommon(info);
 		if (_module.isPlteSeen()) {

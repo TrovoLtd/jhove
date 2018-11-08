@@ -314,7 +314,7 @@ public abstract class HandlerBase
      * representation information.
      * @param info Object representation information
      */
-    public void analyze (RepInfo info)
+    public void analyze (IRepInfo info)
     {
 	/* Do nothing, which is sufficient for most handlers. */
     }
@@ -345,7 +345,7 @@ public abstract class HandlerBase
     /**
      *  Outputs the information contained in a RepInfo object
      */
-    public abstract void show (RepInfo info);
+    public abstract void show (IRepInfo info);
 
     /**
      *  Outputs information about the OutputHandler specified

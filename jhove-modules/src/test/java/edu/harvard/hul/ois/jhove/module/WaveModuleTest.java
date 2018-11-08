@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,14 +29,14 @@ public class WaveModuleTest {
 	@Test
 	public void testSample3() throws IOException {
 		File f = new File("src/test/resources/wave/sample3.wav");
-		RepInfo info = new RepInfo(f.getName());
+		IRepInfo info = new RepInfo(f.getName());
 
 		// Parse
 		module.parse(new FileInputStream(f), info, 0);
 
 		// Check that JHOVE found this was NOT well formed:
 		assertEquals("Should not be well formed. ", info.getWellFormed(),
-				RepInfo.FALSE);
+                IRepInfo.FALSE);
 
 		// Check that there is a message:
 		assertTrue("There should be at least one message. ", info.getMessage()

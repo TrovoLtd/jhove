@@ -67,10 +67,10 @@ public class InstructionSetBox extends JP2Box {
         // If all significant bits of ityp are 0, there are no instructions
         if ((ityp & 0X2B) == 0) {
             if (sizeLeft != 0) {
-                _repInfo.setMessage (new ErrorMessage
+                _I_repInfo.setMessage (new ErrorMessage
                     (MessageConstants.ERR_INSTRUCTION_SET_BOX_DATA_UNDERRUN,
                     _module.getFilePos ()));
-                _repInfo.setWellFormed (false);
+                _I_repInfo.setWellFormed (false);
                 return false;
             }
         }
@@ -129,10 +129,10 @@ public class InstructionSetBox extends JP2Box {
                     sizeLeft -= 16;
                 }
                 if (sizeLeft < 0) {
-                    _repInfo.setMessage (new ErrorMessage
+                    _I_repInfo.setMessage (new ErrorMessage
                         (MessageConstants.ERR_INSTRUCTION_SET_BOX_DATA_OVERRUN,
                         _module.getFilePos ()));
-                    _repInfo.setWellFormed (false);
+                    _I_repInfo.setWellFormed (false);
                     return false;
                 }
             }

@@ -5,11 +5,11 @@ package edu.harvard.hul.ois.jhove.module.pdf;
 
 import java.net.URISyntaxException;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.jhove.JhoveBase;
-import edu.harvard.hul.ois.jhove.RepInfo;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 import edu.harvard.hul.ois.jhove.module.TestUtils;
 
@@ -62,8 +62,8 @@ public class PageTreeTests {
 	 */
 	@Test
 	public final void testValidCatType() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, minimalPdfPath, RepInfo.TRUE,
-				RepInfo.TRUE, null);
+		TestUtils.testValidateResource(this.module, minimalPdfPath, IRepInfo.TRUE,
+                IRepInfo.TRUE, null);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class PageTreeTests {
 	@Test
 	public final void testNoPageTreeNode() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noPageTreeNodePath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
@@ -84,7 +84,7 @@ public class PageTreeTests {
 	@Test
 	public final void testRcrsPageTreeKids() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, rcrsPageTreeKidsPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PAGE_TREE_DEPTH_EXCEEDED);
 	}
 
@@ -95,7 +95,7 @@ public class PageTreeTests {
 	@Test
 	public final void testDiffPageTreeKids() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, diffPageTreeKidsPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_DICT_DELIMETERS_IMPROPERLY_NESTED);
 	}
 
@@ -106,7 +106,7 @@ public class PageTreeTests {
 	@Test
 	public final void testNtExstPageTreeChldPath() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, ntExstPageTreeChldPath,
-				RepInfo.TRUE, RepInfo.FALSE,
+                IRepInfo.TRUE, IRepInfo.FALSE,
 				MessageConstants.ERR_PAGE_TREE_NODE_NOT_FOUND);
 	}
 
@@ -117,7 +117,7 @@ public class PageTreeTests {
 	@Test
 	public final void testNoPageTreeKids() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noPageTreeKidsPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
@@ -128,7 +128,7 @@ public class PageTreeTests {
 	@Test
 	public final void testNoTypePageTree() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noTypePageTreePath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
@@ -139,7 +139,7 @@ public class PageTreeTests {
 	@Test
 	public final void testWrngPageTreeCount() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, wrngPageTreeCountPath,
-				RepInfo.TRUE, RepInfo.TRUE, null);
+                IRepInfo.TRUE, IRepInfo.TRUE, null);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class PageTreeTests {
 	@Test
 	public final void testNoPageTreeCount() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, noPageTreeCountPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
@@ -160,7 +160,7 @@ public class PageTreeTests {
 	@Test
 	public final void testWrngPageTreeType() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, wrngPageTreeTypePath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PAGE_DICT_TYPE_INVALID);
 	}
 }

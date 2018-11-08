@@ -222,7 +222,7 @@ public class AiffModule
     *                    equal to that return value.
     */
    @Override
-   public int parse (InputStream stream, RepInfo info, int parseIndex)
+   public int parse (InputStream stream, IRepInfo info, int parseIndex)
        throws IOException
    {
        initParse ();
@@ -258,7 +258,7 @@ public class AiffModule
                int ch = readUnsignedByte(_dstream, this);
                if (ch != sigByte[i]) {
                    info.setMessage(new ErrorMessage(MessageConstants.ERR_NOT_AIFF_CHU, 0));
-                   info.setWellFormed (RepInfo.FALSE);
+                   info.setWellFormed (IRepInfo.FALSE);
                    return 0;
                }
            }
@@ -283,23 +283,23 @@ public class AiffModule
            }
        }
        catch (EOFException e) {
-           info.setWellFormed (RepInfo.FALSE);
+           info.setWellFormed (IRepInfo.FALSE);
            info.setMessage (new ErrorMessage 
                 (MessageConstants.ERR_EOF_UNEXPECTED, _nByte));
            return 0;
        }
        
        if (!commonChunkSeen) {
-           info.setWellFormed (RepInfo.FALSE);
+           info.setWellFormed (IRepInfo.FALSE);
            info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_COMMON_CHUNK_MISS));
        }
        if (fileType == AIFCTYPE && !formatVersionChunkSeen) {
-           info.setWellFormed (RepInfo.FALSE);
+           info.setWellFormed (IRepInfo.FALSE);
            info.setMessage (new ErrorMessage
                 (MessageConstants.ERR_FORMAT_VER_CHUNK_MISS));
        }
-       if (info.getWellFormed () != RepInfo.TRUE) {
+       if (info.getWellFormed () != IRepInfo.TRUE) {
            return 0;
        }
        
@@ -577,7 +577,7 @@ public class AiffModule
      *  Broken out from parse().
      *  If it is not a valid file type, returns false.
      */
-    protected boolean readFileType (RepInfo info) throws IOException
+    protected boolean readFileType (IRepInfo info) throws IOException
     {
         String typ = read4Chars (_dstream);
         bytesRemaining -= 4;
@@ -594,7 +594,7 @@ public class AiffModule
         else {
             info.setMessage (new ErrorMessage 
                     (MessageConstants.ERR_FORM_CHUNK_NOT_AAIF, _nByte));
-            info.setWellFormed (RepInfo.FALSE);
+            info.setWellFormed (IRepInfo.FALSE);
             return false;
         }
     }
@@ -602,7 +602,7 @@ public class AiffModule
     /** Reads an AIFF Chunk.
      * 
      */
-     protected boolean readChunk (RepInfo info) throws IOException
+     protected boolean readChunk (IRepInfo info) throws IOException
      {
         Chunk chunk = null;
         ChunkHeader chunkh = new ChunkHeader (this, info);
@@ -740,7 +740,7 @@ public class AiffModule
     }
 
     /* Factor out the reporting of duplicate chunks. */
-    protected void dupChunkError (RepInfo info, String chunkName)
+    protected void dupChunkError (IRepInfo info, String chunkName)
     {
         info.setMessage (new ErrorMessage
                         (MessageConstants.ERR_MULTI_CHUNK_NOT_PERM + chunkName +

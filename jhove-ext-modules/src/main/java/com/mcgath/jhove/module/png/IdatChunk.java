@@ -1,7 +1,7 @@
 package com.mcgath.jhove.module.png;
 
 import edu.harvard.hul.ois.jhove.ErrorMessage;
-import edu.harvard.hul.ois.jhove.RepInfo;
+import edu.harvard.hul.ois.jhove.IRepInfo;
 
 /** The IDAT (pixel data) chunk */
 public class IdatChunk extends PNGChunk {
@@ -15,7 +15,7 @@ public class IdatChunk extends PNGChunk {
 	
 	/** Process the chunk. We don't analyze or report the data, but
 	 *  we enforce the requirement that IDAT chunks must be consecutive. */
-	public void processChunk(RepInfo info) throws Exception {
+	public void processChunk(IRepInfo info) throws Exception {
 		processChunkCommon(info);
 		_module.setIdatSeen(true);
 		if (_module.isIdatFinished()) {

@@ -95,7 +95,7 @@ public class ContCodestream {
      *  @return  True if no fatal errors detected, 
      *           false if error prevents safe continuation
      */
-    public boolean readCodestream (Codestream cs, RepInfo info) 
+    public boolean readCodestream (Codestream cs, IRepInfo info)
                 throws IOException
     {
         final String badStream =

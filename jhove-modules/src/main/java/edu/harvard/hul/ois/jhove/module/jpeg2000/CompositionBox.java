@@ -66,10 +66,10 @@ public class CompositionBox extends JP2Box {
         // Read the options box
         box = (JP2Box) next ();
         if (!(box instanceof CompOptionsBox)) {
-            _repInfo.setMessage (new ErrorMessage
+            _I_repInfo.setMessage (new ErrorMessage
                 (MessageConstants.ERR_COMPOSITION_BOX_START_INVALID,
                  _module.getFilePos()));
-            _repInfo.setWellFormed (false);
+            _I_repInfo.setWellFormed (false);
             return false;
         }
         long sizeLeft = _boxHeader.getDataLength () - box.getLength ();

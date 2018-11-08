@@ -135,10 +135,10 @@ public class ColorSpecBox extends JP2Box {
             //Not a valid method 2 box
             else {
                 //_module.setJP2Compliant (false);
-                _repInfo.setMessage(new ErrorMessage
+                _I_repInfo.setMessage(new ErrorMessage
                         (MessageConstants.ERR_COLOR_SPEC_BOX_ICC_PROFILE_INVALID,
                          filePos));
-                _repInfo.setValid(false);
+                _I_repInfo.setValid(false);
             }
         }
         else {

@@ -37,7 +37,7 @@ public class ListInfoChunk extends Superchunk {
         ModuleBase module,
         ChunkHeader hdr,
         DataInputStream dstrm,
-        RepInfo info) {
+        IRepInfo info) {
         super(module, hdr, dstrm, info);
     }
 
@@ -48,7 +48,7 @@ public class ListInfoChunk extends Superchunk {
      *            invalid, otherwise <code>true</code>
      * 
      */
-    public boolean readChunk(RepInfo info) throws IOException 
+    public boolean readChunk(IRepInfo info) throws IOException
     {
         boolean isInfo = false;
         boolean isExif = false;
@@ -71,7 +71,7 @@ public class ListInfoChunk extends Superchunk {
         }
     }
 
-    private boolean readInfoChunk (RepInfo info) throws IOException
+    private boolean readInfoChunk (IRepInfo info) throws IOException
     {
         List listInfoProps = new LinkedList ();
         WaveModule module = (WaveModule) _module;
@@ -114,7 +114,7 @@ public class ListInfoChunk extends Superchunk {
 
     /*  The Exif chunk, unlike the Info chunk, has subchunks which aren't
      *  homogeneous.  */
-    private boolean readExifChunk (RepInfo info) throws IOException
+    private boolean readExifChunk (IRepInfo info) throws IOException
     {
         List exifProps = new LinkedList ();
         WaveModule module = (WaveModule) _module;
@@ -164,7 +164,7 @@ public class ListInfoChunk extends Superchunk {
      *            is structurally
      *            invalid, otherwise <code>true</code>
      */
-    public boolean readAdtlChunk(RepInfo info)
+    public boolean readAdtlChunk(IRepInfo info)
 	throws IOException
     {
         WaveModule module = (WaveModule) _module;

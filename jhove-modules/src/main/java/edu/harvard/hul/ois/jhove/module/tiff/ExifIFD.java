@@ -266,7 +266,7 @@ public class ExifIFD
      * @param raf TIFF file
      * @param bigEndian True if big-endian file
      */
-    public ExifIFD (long offset, RepInfo info, RandomAccessFile raf,
+    public ExifIFD (long offset, IRepInfo info, RandomAccessFile raf,
                     boolean bigEndian)
     {
         super (offset, info, raf, bigEndian);

@@ -85,7 +85,7 @@ public final class BytestreamModule
      *   results in RepInfo.
      *   Any arbitrary bytestream is considered well-formed.
      */
-    public final int parse (InputStream stream, RepInfo info, int parseIndex)
+    public final int parse (InputStream stream, IRepInfo info, int parseIndex)
 	throws IOException
     {
         initParse ();
@@ -149,7 +149,7 @@ public final class BytestreamModule
      * doing nothing.  The RepInfo._consistent flag will remain true.
      */
     public void checkSignatures (File file, InputStream stream,
-				 RepInfo info)
+				 IRepInfo info)
         throws IOException
     {
             info.setFormat (_format[0]);

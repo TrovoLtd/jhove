@@ -54,13 +54,13 @@ public final class JpegExif {
      *  available.  This should be called only if isTiffAvailable()
      *  has returned <code>true</code>.
      */
-    public RepInfo readExifData (DataInputStream dstream, JhoveBase je, 
-				 int length)
+    public IRepInfo readExifData (DataInputStream dstream, JhoveBase je,
+                                  int length)
     {
         RandomAccessFile tiffRaf = null;
         File tiffFile = null;
         FileOutputStream fos = null;
-        RepInfo info = new RepInfo ("tempfile");
+        IRepInfo info = new RepInfo ("tempfile");
         /* We're now at the beginning of the TIFF data.
 	 * Copy it into a temporary file, then parse that
 	 * as a TIFF file. 

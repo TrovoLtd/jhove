@@ -2,11 +2,11 @@ package edu.harvard.hul.ois.jhove.module.pdf;
 
 import java.net.URISyntaxException;
 
+import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.jhove.JhoveBase;
-import edu.harvard.hul.ois.jhove.RepInfo;
 import edu.harvard.hul.ois.jhove.module.PdfModule;
 import edu.harvard.hul.ois.jhove.module.TestUtils;
 
@@ -55,8 +55,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testValidCatType() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, minimalPdfPath, RepInfo.TRUE,
-				RepInfo.TRUE, null);
+		TestUtils.testValidateResource(this.module, minimalPdfPath, IRepInfo.TRUE,
+                IRepInfo.TRUE, null);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testNoCat() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, catNoCat, RepInfo.FALSE,
-				RepInfo.FALSE, MessageConstants.ERR_DOC_CAT_DICT_MISSING);
+		TestUtils.testValidateResource(this.module, catNoCat, IRepInfo.FALSE,
+                IRepInfo.FALSE, MessageConstants.ERR_DOC_CAT_DICT_MISSING);
 	}
 
 	/**
@@ -75,8 +75,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testCatWrongObjNum() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, catWrongObjNumberPath, RepInfo.FALSE,
-				RepInfo.FALSE, MessageConstants.ERR_DOC_CAT_OBJ_NUM_INCNSTNT);
+		TestUtils.testValidateResource(this.module, catWrongObjNumberPath, IRepInfo.FALSE,
+                IRepInfo.FALSE, MessageConstants.ERR_DOC_CAT_OBJ_NUM_INCNSTNT);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class DocCatTests {
 	@Test
 	public final void testPagRefMiss() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, catPagRefMissPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
@@ -97,7 +97,7 @@ public class DocCatTests {
 	@Test
 	public final void testPageRefIncorrect() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, catPageRefIncorrectPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_PAGE_TREE_MISSING);
 	}
 
@@ -107,8 +107,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testCatTypeKeyMiss() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, catTypeKyMissPath, RepInfo.FALSE,
-				RepInfo.FALSE, MessageConstants.ERR_DOC_CAT_DICT_MISSING);
+		TestUtils.testValidateResource(this.module, catTypeKyMissPath, IRepInfo.FALSE,
+                IRepInfo.FALSE, MessageConstants.ERR_DOC_CAT_DICT_MISSING);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class DocCatTests {
 	@Test
 	public final void testCatTypeVal() throws URISyntaxException {
 		TestUtils.testValidateResource(this.module, catTypeValNotCatalogPath,
-				RepInfo.FALSE, RepInfo.FALSE,
+                IRepInfo.FALSE, IRepInfo.FALSE,
 				MessageConstants.ERR_DOC_CAT_TYPE_INVALID);
 	}
 
@@ -128,8 +128,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testCatTypeKeyValMiss() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, catTypeKyValPairMissPath, RepInfo.FALSE,
-				RepInfo.FALSE, MessageConstants.ERR_OBJ_DEF_INVALID);
+		TestUtils.testValidateResource(this.module, catTypeKyValPairMissPath, IRepInfo.FALSE,
+                IRepInfo.FALSE, MessageConstants.ERR_OBJ_DEF_INVALID);
 	}
 
 	/**
@@ -138,8 +138,8 @@ public class DocCatTests {
 	 */
 	@Test
 	public final void testOneByteMiss() throws URISyntaxException {
-		TestUtils.testValidateResource(this.module, oneByteMissingPath, RepInfo.FALSE,
-				RepInfo.FALSE, MessageConstants.ERR_DOC_CAT_OBJ_NUM_INCNSTNT);
+		TestUtils.testValidateResource(this.module, oneByteMissingPath, IRepInfo.FALSE,
+                IRepInfo.FALSE, MessageConstants.ERR_DOC_CAT_OBJ_NUM_INCNSTNT);
 	}
 
 }
