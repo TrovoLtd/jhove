@@ -2,11 +2,14 @@ package edu.harvard.hul.ois.jhove.module.fakes;
 
 import edu.harvard.hul.ois.jhove.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FakeRepInfo implements IRepInfo {
+
+    private int _wellFormed;
+    private boolean _isWellFormed;
+
+    private List<Message> _message;
 
     @Override
     public Object clone() {
@@ -40,7 +43,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public List<Message> getMessage() {
-        return null;
+        return _message;
     }
 
     @Override
@@ -90,7 +93,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public int getWellFormed() {
-        return 0;
+        return this._wellFormed;
     }
 
     @Override
@@ -145,7 +148,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setMessage(Message message) {
-
+        this._message.add(message);
     }
 
     @Override
@@ -180,12 +183,12 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setWellFormed(boolean wellFormed) {
-
+        this._isWellFormed = wellFormed;
     }
 
     @Override
     public void setWellFormed(int wellFormed) {
-
+        this._wellFormed = wellFormed;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package edu.harvard.hul.ois.jhove.module;
 
+import edu.harvard.hul.ois.jhove.Message;
 import edu.harvard.hul.ois.jhove.module.fakes.FakeRepInfo;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,12 +22,7 @@ public class XMLModuleParsingTest {
         testXMLModule = new XmlModule();
         fakeRepInfo = new FakeRepInfo();
 
-        testInputStream = new InputStream() {
-            @Override
-            public int read() throws IOException {
-                return 0;
-            }
-        };
+        testInputStream = this._loadXMLIntoStream(this._generatePathToXMLFile());
 
     }
 
@@ -37,8 +32,36 @@ public class XMLModuleParsingTest {
 
         testXMLModule.parse(testInputStream, fakeRepInfo, 0);
 
-        String result = testXMLModule.get_info().getFormat();
+        Message result = testXMLModule.get_info().getMessage().get(0);
 
-        assertEquals("XML", result);
+        assertEquals(result.getMessage(), "Blah");
     }
+
+    private String _generatePathToXMLFile() {
+
+        String test_xml_file_location = new StringBuilder()
+                .append(System.getProperty("user.dir"))
+                .append(File.separator)
+                .append("src")
+                .append(File.separator)
+                .append("test")
+                .append(File.separator)
+                .append("resources")
+                .append(File.separator)
+                .append("XML")
+                .append(File.separator)
+                .append("simple_xml.xml")
+                .toString();
+
+        return  test_xml_file_location;
+    }
+
+    private InputStream _loadXMLIntoStream(String fileLocation) throws FileNotFoundException {
+
+        File xmlFile = new File(fileLocation);
+        InputStream result = new FileInputStream(xmlFile);
+        return result;
+
+    }
+
 }
