@@ -28,13 +28,43 @@ public class XMLModuleParsingTest {
     }
 
     @Test
-    public void testParse() throws IOException {
+    public void testParseReturnsFormatOfXML() throws IOException {
 
         testXMLModule.parse(testInputStream, fakeRepInfo, 0);
 
         IRepInfo result = testXMLModule.get_info();
 
         assertEquals("XML", result.getFormat());
+    }
+
+    @Test
+    public void testParseReturnsMimeTypeOfXML() throws IOException {
+
+        testXMLModule.parse(testInputStream, fakeRepInfo, 0);
+
+        IRepInfo result = testXMLModule.get_info();
+
+        assertEquals("text/xml", result.getMimeType());
+    }
+
+    @Test
+    public void testParseWithSimpleXMLReturnsWellFormed() throws IOException {
+
+        testXMLModule.parse(testInputStream, fakeRepInfo, 0);
+
+        IRepInfo result = testXMLModule.get_info();
+
+        assertEquals(0, result.getWellFormed());
+    }
+
+    @Test
+    public void testParseWithSimpleXMLReturnsInvalid() throws IOException {
+
+        testXMLModule.parse(testInputStream, fakeRepInfo, 0);
+
+        IRepInfo result = testXMLModule.get_info();
+
+        assertEquals(-1, result.getValid());
     }
 
     private String _generatePathToXMLFile() {

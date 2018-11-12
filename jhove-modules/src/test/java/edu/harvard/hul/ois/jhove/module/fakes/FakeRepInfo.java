@@ -7,8 +7,9 @@ import java.util.*;
 public class FakeRepInfo implements IRepInfo {
 
     private int _wellFormed;
-    private boolean _isWellFormed;
     private String _format;
+    private String _mimeType;
+    private int _valid;
 
     private List<Message> _message;
 
@@ -49,7 +50,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public String getMimeType() {
-        return null;
+        return this._mimeType;
     }
 
     @Override
@@ -99,7 +100,8 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public int getValid() {
-        return 0;
+
+        return this._valid;
     }
 
     @Override
@@ -154,7 +156,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setMimeType(String mimeType) {
-
+        this._mimeType = mimeType;
     }
 
     @Override
@@ -184,7 +186,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setWellFormed(boolean wellFormed) {
-        this._isWellFormed = wellFormed;
+        this._wellFormed = wellFormed ? TRUE : FALSE;
     }
 
     @Override
@@ -194,12 +196,12 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setValid(boolean valid) {
-
+        this._valid = valid ? TRUE : FALSE;
     }
 
     @Override
     public void setValid(int valid) {
-
+        this._valid = valid;
     }
 
     @Override
