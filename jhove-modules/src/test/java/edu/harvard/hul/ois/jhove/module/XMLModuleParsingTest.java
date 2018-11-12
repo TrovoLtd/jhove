@@ -1,9 +1,9 @@
 package edu.harvard.hul.ois.jhove.module;
 
-import edu.harvard.hul.ois.jhove.Message;
+import edu.harvard.hul.ois.jhove.IRepInfo;
+import edu.harvard.hul.ois.jhove.module.fakes.FakeJhoveBase;
 import edu.harvard.hul.ois.jhove.module.fakes.FakeRepInfo;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -20,21 +20,21 @@ public class XMLModuleParsingTest {
     public void setUp() throws Exception {
 
         testXMLModule = new XmlModule();
+        testXMLModule.setBase(new FakeJhoveBase());
         fakeRepInfo = new FakeRepInfo();
 
         testInputStream = this._loadXMLIntoStream(this._generatePathToXMLFile());
 
     }
 
-    @Ignore
     @Test
     public void testParse() throws IOException {
 
         testXMLModule.parse(testInputStream, fakeRepInfo, 0);
 
-        Message result = testXMLModule.get_info().getMessage().get(0);
+        IRepInfo result = testXMLModule.get_info();
 
-        assertEquals(result.getMessage(), "Blah");
+        assertEquals("XML", result.getFormat());
     }
 
     private String _generatePathToXMLFile() {

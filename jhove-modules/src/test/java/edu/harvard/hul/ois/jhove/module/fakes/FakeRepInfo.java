@@ -8,6 +8,7 @@ public class FakeRepInfo implements IRepInfo {
 
     private int _wellFormed;
     private boolean _isWellFormed;
+    private String _format;
 
     private List<Message> _message;
 
@@ -33,7 +34,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public String getFormat() {
-        return null;
+        return this._format;
     }
 
     @Override
@@ -138,7 +139,7 @@ public class FakeRepInfo implements IRepInfo {
 
     @Override
     public void setFormat(String format) {
-
+        this._format = format;
     }
 
     @Override
