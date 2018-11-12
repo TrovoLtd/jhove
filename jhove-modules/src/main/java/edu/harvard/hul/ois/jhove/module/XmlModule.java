@@ -21,19 +21,19 @@
 
 package edu.harvard.hul.ois.jhove.module;
 
-import java.io.*;
-import java.util.*;
 import edu.harvard.hul.ois.jhove.*;
-import edu.harvard.hul.ois.jhove.module.xml.*;
-import edu.harvard.hul.ois.jhove.module.html.HtmlMetadata;
 import edu.harvard.hul.ois.jhove.module.html.DTDMapper;
-
-import org.xml.sax.XMLReader;
-import javax.xml.parsers.SAXParserFactory;
+import edu.harvard.hul.ois.jhove.module.html.HtmlMetadata;
+import edu.harvard.hul.ois.jhove.module.xml.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.*;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
+import java.util.*;
 
 /**
  *  Module for identification and validation of XML files.
@@ -123,6 +123,14 @@ public class XmlModule
 
     /* Map from URIs to locally stored schemas */
     protected Map<String, File> _localSchemas;
+
+    /* Provides access to the RepInfo passed into .parse() for testing / analysis purposes */
+
+    protected IRepInfo _repInfo;
+
+    public IRepInfo get_info() {
+        return this._repInfo;
+    }
 
     /******************************************************************
     * CLASS CONSTRUCTOR.
@@ -979,6 +987,8 @@ public class XmlModule
             info.setVersion ("1.0");
             _textMD.setMarkup_basis_version("1.0");
         }
+
+        this._repInfo = info;
         return 0;
     }
 
