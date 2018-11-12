@@ -32,9 +32,7 @@ import java.util.logging.Logger;
  * More than one JhoveBase may be instantiated and process files in concurrent
  * threads. Any one instance must not be multithreaded.
  */
-public class JhoveBase {
-
-    public static final String _name = "JhoveBase";
+public class JhoveBase implements IJhoveBase {
 
     private static final ReleaseDetails RELEASE_DETAILS =
             ReleaseDetails.getInstance();
@@ -188,6 +186,7 @@ public class JhoveBase {
      * @throws JhoveException
      *            when anything goes wrong
      */
+    @Override
     public void init(String configFile, String saxClass) throws JhoveException {
 
         if (configFile == null) {
@@ -374,6 +373,7 @@ public class JhoveBase {
      * Sets a callback object for tracking progress.
      * By default, the callback is <code>null</code>.
      */
+    @Override
     public void setCallback(Callback callback) {
         _callback = callback;
     }
@@ -401,8 +401,9 @@ public class JhoveBase {
      * @param dirFileOrUri
      *            One or more file names or URI's to be analyzed
      */
+    @Override
     public void dispatch(App app, Module module, OutputHandler aboutHandler,
-            OutputHandler handler, String outputFile, String[] dirFileOrUri)
+                         OutputHandler handler, String outputFile, String[] dirFileOrUri)
             throws Exception {
 
         _abort = false;
@@ -450,8 +451,9 @@ public class JhoveBase {
      * Returns <code>false</code> if processing should be aborted.
      * Calls itself recursively for directories.
      */
+    @Override
     public boolean process(App app, Module module, OutputHandler handler,
-            String dirFileOrUri) throws Exception {
+                           String dirFileOrUri) throws Exception {
 
         if (_abort) {
             return false;
@@ -619,6 +621,7 @@ public class JhoveBase {
      * interrupted asynchronously by calling <code>abort</code>, in which
      * case it will delete the temporary file and return <code>null</code>.
      */
+    @Override
     public File connToTempFile(URLConnection conn, IRepInfo info)
             throws IOException {
 
@@ -730,6 +733,7 @@ public class JhoveBase {
      * Aborts an activity. This simply sets a flag; whether anything is aborted
      * depends on what activity is happening.
      */
+    @Override
     public void abort() {
         _abort = true;
         HttpsURLConnection conn = null;
@@ -757,8 +761,9 @@ public class JhoveBase {
      * the module is incapable of validation. This shouldn't be called if
      * the module doesn't have the validation feature.
      */
+    @Override
     public boolean processFile(App app, Module module, boolean verbose,
-            File file, IRepInfo info) throws Exception {
+                               File file, IRepInfo info) throws Exception {
 
         if (!module.hasFeature("edu.harvard.hul.ois.jhove.canValidate")) {
             return false;
@@ -811,6 +816,7 @@ public class JhoveBase {
      * Creates a temporary file with a unique name. The file will be deleted
      * when the application exits.
      */
+    @Override
     public File tempFile() throws IOException {
         File file;
 
@@ -830,6 +836,7 @@ public class JhoveBase {
     /**
      * Returns the abort flag.
      */
+    @Override
     public boolean getAbort() {
         return _abort;
     }
@@ -838,6 +845,7 @@ public class JhoveBase {
      * Returns buffer size. A value of -1 signifies that the invoking code
      * should assume the default buffer size.
      */
+    @Override
     public int getBufferSize() {
         return _bufferSize;
     }
@@ -845,6 +853,7 @@ public class JhoveBase {
     /**
      * Returns the configuration file.
      */
+    @Override
     public String getConfigFile() {
         return _configFile;
     }
@@ -852,6 +861,7 @@ public class JhoveBase {
     /**
      * Returns the engine date (the date at which this instance was created).
      */
+    @Override
     public Date getDate() {
         return RELEASE_DETAILS.getBuildDate();
     }
@@ -859,6 +869,7 @@ public class JhoveBase {
     /**
      * Returns the output encoding.
      */
+    @Override
     public String getEncoding() {
         return _encoding;
     }
@@ -866,6 +877,7 @@ public class JhoveBase {
     /**
      * Returns the JHOVE configuration extensions.
      */
+    @Override
     public Map<String, String> getExtension() {
         return _extensions;
     }
@@ -873,6 +885,7 @@ public class JhoveBase {
     /**
      * Returns the JHOVE configuration extension by name.
      */
+    @Override
     public String getExtension(String name) {
         return _extensions.get(name);
     }
@@ -880,6 +893,7 @@ public class JhoveBase {
     /**
      * Returns a handler by name.
      */
+    @Override
     public OutputHandler getHandler(String name) {
         OutputHandler handler = null;
         if (name != null) {
@@ -891,6 +905,7 @@ public class JhoveBase {
     /**
      * Returns map of handler names to handlers.
      */
+    @Override
     public Map<String, OutputHandler> getHandlerMap() {
         return _handlerMap;
     }
@@ -898,6 +913,7 @@ public class JhoveBase {
     /**
      * Returns the list of handlers.
      */
+    @Override
     public List<OutputHandler> getHandlerList() {
         return _handlerList;
     }
@@ -905,6 +921,7 @@ public class JhoveBase {
     /**
      * Returns the JHOVE home directory.
      */
+    @Override
     public String getJhoveHome() {
         return _jhoveHome;
     }
@@ -912,6 +929,7 @@ public class JhoveBase {
     /**
      * Returns a module by name.
      */
+    @Override
     public Module getModule(String name) {
         Module module = null;
         if (name != null) {
@@ -923,6 +941,7 @@ public class JhoveBase {
     /**
      * Returns the map of module names to modules.
      */
+    @Override
     public Map<String, Module> getModuleMap() {
         return _moduleMap;
     }
@@ -930,6 +949,7 @@ public class JhoveBase {
     /**
      * Returns the list of modules.
      */
+    @Override
     public List<Module> getModuleList() {
         return _moduleList;
     }
@@ -937,6 +957,7 @@ public class JhoveBase {
     /**
      * Returns the engine name.
      */
+    @Override
     public String getName() {
         return _name;
     }
@@ -944,6 +965,7 @@ public class JhoveBase {
     /**
      * Returns the output file.
      */
+    @Override
     public String getOuputFile() {
         return _outputFile;
     }
@@ -951,6 +973,7 @@ public class JhoveBase {
     /**
      * Returns the engine release.
      */
+    @Override
     public String getRelease() {
         return RELEASE_DETAILS.getVersion();
     }
@@ -958,6 +981,7 @@ public class JhoveBase {
     /**
      * Returns the engine rights statement.
      */
+    @Override
     public String getRights() {
         return RELEASE_DETAILS.getRights();
     }
@@ -965,6 +989,7 @@ public class JhoveBase {
     /**
      * Returns the SAX class.
      */
+    @Override
     public String getSaxClass() {
         return _saxClass;
     }
@@ -972,6 +997,7 @@ public class JhoveBase {
     /**
      * Returns the temporary directory path.
      */
+    @Override
     public String getTempDirectory() {
         return _tempDir;
     }
@@ -981,6 +1007,7 @@ public class JhoveBase {
      * an indefinitely positioned signature or check the first sigBytes bytes
      * in lieu of a signature.
      */
+    @Override
     public int getSigBytes() {
         return _sigBytes;
     }
@@ -989,6 +1016,7 @@ public class JhoveBase {
      * Returns the directory designated for saving files. This is simply the
      * directory most recently set by <code>setSaveDirectory</code>.
      */
+    @Override
     public File getSaveDirectory() {
         return _saveDir;
     }
@@ -996,6 +1024,7 @@ public class JhoveBase {
     /**
      * Returns <code>true</code> if checksums are requested.
      */
+    @Override
     public boolean getChecksumFlag() {
         return _checksum;
     }
@@ -1005,6 +1034,7 @@ public class JhoveBase {
      * numeric rather than symbolic output; its exact interpretation is up to
      * the module, but generally applies to named flags.
      */
+    @Override
     public boolean getShowRawFlag() {
         return _showRaw;
     }
@@ -1012,6 +1042,7 @@ public class JhoveBase {
     /**
      * Returns the "check signature only" flag.
      */
+    @Override
     public boolean getSignatureFlag() {
         return _signature;
     }
@@ -1019,6 +1050,7 @@ public class JhoveBase {
     /**
      * Returns the requested MIX schema version.
      */
+    @Override
     public String getMixVersion() {
         return _mixVsn;
     }
@@ -1030,6 +1062,7 @@ public class JhoveBase {
      * Any non-negative value less than 1024 will result in a buffer size of
      * 1024.
      */
+    @Override
     public void setBufferSize(int bufferSize) {
         if (bufferSize >= 0 && bufferSize < 1024) {
             _bufferSize = 1024;
@@ -1041,6 +1074,7 @@ public class JhoveBase {
     /**
      * Sets the output encoding.
      */
+    @Override
     public void setEncoding(String encoding) {
         _encoding = encoding;
     }
@@ -1048,6 +1082,7 @@ public class JhoveBase {
     /**
      * Sets the temporary directory path.
      */
+    @Override
     public void setTempDirectory(String tempDir) {
         _tempDir = tempDir;
     }
@@ -1057,6 +1092,7 @@ public class JhoveBase {
      * of java.util.logging.Level, e.g., "WARNING", "INFO", "ALL". This will
      * override the config file setting.
      */
+    @Override
     public void setLogLevel(String level) {
         _logLevel = level;
         if (level != null) {
@@ -1070,6 +1106,7 @@ public class JhoveBase {
     /**
      * Sets the value to be returned by <code>doChecksum</code>.
      */
+    @Override
     public void setChecksumFlag(boolean checksum) {
         _checksum = checksum;
     }
@@ -1078,6 +1115,7 @@ public class JhoveBase {
      * Sets the value to be returned by <code>getShowRawFlag</code>, which
      * determines if only raw numeric values should be output.
      */
+    @Override
     public void setShowRawFlag(boolean raw) {
         _showRaw = raw;
     }
@@ -1085,6 +1123,7 @@ public class JhoveBase {
     /**
      * Sets the "check signature only" flag.
      */
+    @Override
     public void setSignatureFlag(boolean signature) {
         _signature = signature;
     }
@@ -1092,6 +1131,7 @@ public class JhoveBase {
     /**
      * Sets the default directory for subsequent save operations.
      */
+    @Override
     public void setSaveDirectory(File dir) {
         _saveDir = dir;
     }
@@ -1099,6 +1139,7 @@ public class JhoveBase {
     /**
      * Sets the current thread for parsing.
      */
+    @Override
     public void setCurrentThread(Thread t) {
         _currentThread = t;
     }
@@ -1107,6 +1148,7 @@ public class JhoveBase {
      * Resets the abort flag. This must be called at the beginning of any
      * activity for which the abort flag may subsequently be set.
      */
+    @Override
     public void resetAbort() {
         _abort = false;
     }
@@ -1202,6 +1244,7 @@ public class JhoveBase {
      * Creates a temporary file with a unique name. The file will be deleted
      * when the application exits.
      */
+    @Override
     public File newTempFile() throws IOException {
         return tempFile();
     }

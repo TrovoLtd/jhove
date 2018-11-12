@@ -75,7 +75,7 @@ public class CrossRefBox extends JP2Box {
         box.readBox ();
         List fragList = ((FragmentListBox) box).getFragmentList();
         //App app = _module.getApp();
-        JhoveBase base = _module.getBase ();
+        IJhoveBase base = _module.getBase ();
         int bufSize = base.getBufferSize ();
         fragStream = new DataInputStream
             (new FragmentInputStream (fragList, _raf, bufSize));

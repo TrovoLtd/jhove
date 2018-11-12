@@ -5,13 +5,19 @@
 
 package edu.harvard.hul.ois.jhove.viewer;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.*;
+import edu.harvard.hul.ois.jhove.App;
+import edu.harvard.hul.ois.jhove.IJhoveBase;
+import edu.harvard.hul.ois.jhove.Module;
+import edu.harvard.hul.ois.jhove.OutputHandler;
+
 import javax.swing.*;
-import java.io.*;
-import edu.harvard.hul.ois.jhove.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *   This window is for presenting information about the JHOVE
@@ -22,7 +28,7 @@ public class AppInfoWindow extends InfoWindow
 
     private JTextArea texta;
 
-    public AppInfoWindow (App app, JhoveBase jbase)
+    public AppInfoWindow (App app, IJhoveBase jbase)
     {
         super ("Application Info", app, jbase);
         setSaveActionListener ( 
@@ -64,7 +70,7 @@ public class AppInfoWindow extends InfoWindow
 	texta.scrollRectToVisible (r);
     }
 
-    private void showApp (App app, JhoveBase jbase)
+    private void showApp (App app, IJhoveBase jbase)
     {
 	String appName = app.getName ();
 	if (appName != null) {

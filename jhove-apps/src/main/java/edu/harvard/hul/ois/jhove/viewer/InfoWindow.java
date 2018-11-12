@@ -27,7 +27,7 @@ import edu.harvard.hul.ois.jhove.*;
 public abstract class InfoWindow extends JFrame 
 {
     protected App _app;
-    private JhoveBase _base;
+    private IJhoveBase _base;
     private JMenuItem _saveItem;
     private JMenuItem _closeItem;
     private JComboBox _handlerBox;
@@ -53,7 +53,7 @@ public abstract class InfoWindow extends JFrame
      * 
      * @throws java.awt.HeadlessException
      */
-    public InfoWindow(String title, App app, JhoveBase base) 
+    public InfoWindow(String title, App app, IJhoveBase base)
                 throws HeadlessException {
         super(title);
 

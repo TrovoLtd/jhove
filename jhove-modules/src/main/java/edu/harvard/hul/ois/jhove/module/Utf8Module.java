@@ -447,7 +447,7 @@ public class Utf8Module extends ModuleBase {
         info.setMimeType(_mimeType[0]);
         info.setModule(this);
         initialBytes = new int[4];
-        JhoveBase jb = getBase();
+        IJhoveBase jb = getBase();
         int sigBytes = jb.getSigBytes();
         int bytesRead = 0;
         blockMarker = new Utf8BlockMarker();

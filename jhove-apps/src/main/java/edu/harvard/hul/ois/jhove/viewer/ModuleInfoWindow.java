@@ -33,7 +33,7 @@ public class ModuleInfoWindow extends InfoWindow{
      *  @param base   The associated JhoveBase object.
      *  @param module The Module whose information is to be presented.
      */
-    public ModuleInfoWindow (App app, JhoveBase base, Module module) 
+    public ModuleInfoWindow (App app, IJhoveBase base, Module module)
     {
         super ("Module Info", app, base);
         _module = module;

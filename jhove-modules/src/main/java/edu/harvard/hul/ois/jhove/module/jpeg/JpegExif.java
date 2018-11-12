@@ -54,7 +54,7 @@ public final class JpegExif {
      *  available.  This should be called only if isTiffAvailable()
      *  has returned <code>true</code>.
      */
-    public IRepInfo readExifData (DataInputStream dstream, JhoveBase je,
+    public IRepInfo readExifData (DataInputStream dstream, IJhoveBase je,
                                   int length)
     {
         RandomAccessFile tiffRaf = null;

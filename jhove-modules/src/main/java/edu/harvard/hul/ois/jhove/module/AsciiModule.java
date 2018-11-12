@@ -348,7 +348,7 @@ public class AsciiModule extends ModuleBase {
         info.setFormat(_format[0]);
         info.setMimeType(_mimeType[0]);
         info.setModule(this);
-        JhoveBase jb = getBase();
+        IJhoveBase jb = getBase();
         int sigBytes = jb.getSigBytes();
         int bytesRead = 0;
         boolean eof = false;

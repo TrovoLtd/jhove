@@ -44,7 +44,7 @@ public class JhoveWindow extends JFrame
         implements Callback, DropTargetListener {
 
     private App _app;
-    private JhoveBase _base;
+    private IJhoveBase _base;
     private AppInfoWindow _appInfoWin;
     private ModuleInfoWindow _moduleInfoWin;
     private JMenu _moduleSubmenu;
@@ -87,7 +87,7 @@ public class JhoveWindow extends JFrame
     private final  InvisibleFilenameFilter invisibleFilter =
             new JhoveWindow.InvisibleFilenameFilter ();
     
-    public JhoveWindow (App app, JhoveBase base) 
+    public JhoveWindow (App app, IJhoveBase base)
     {
         super ("Jhove");
         _logger = Logger.getLogger ("edu.harvard.hul.ois.jhove.viewer");

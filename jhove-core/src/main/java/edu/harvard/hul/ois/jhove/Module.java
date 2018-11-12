@@ -72,7 +72,7 @@ public interface Module
     /**
      *  Pass the JHOVE engine object to this Module.
      */
-    public void setBase (JhoveBase je);
+    public void setBase (IJhoveBase je);
 
     /**
      *  Set the degree of verbosity desired from the module.  

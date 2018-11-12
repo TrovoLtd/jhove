@@ -64,7 +64,7 @@ public class FragmentTableBox extends JP2Box {
             // fragList will be null if external files are referenced.
             if (fragList != null) {
                 //App app = _module.getApp();
-                JhoveBase base = _module.getBase ();
+                IJhoveBase base = _module.getBase ();
                 int bufSize = base.getBufferSize ();
                 FragmentInputStream fragStream = 
                     new FragmentInputStream (fragList, _raf, bufSize);

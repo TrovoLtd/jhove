@@ -41,7 +41,7 @@ public abstract class ModuleBase
     /** List of default parameters. */
     protected List<String> _defaultParams;
     /** JHOVE engine. */
-    protected JhoveBase _je;
+    protected IJhoveBase _je;
     /**  MIME types supported by this Module */
     protected String [] _mimeType;
     /**  Module name */
@@ -246,7 +246,7 @@ public abstract class ModuleBase
     /**
      *   Returns the JHOVE engine object.
      */
-    public JhoveBase getBase() {
+    public IJhoveBase getBase() {
         return _je;
     }
 
@@ -470,7 +470,7 @@ public abstract class ModuleBase
     /**
      *  Pass the JHOVE engine object to this Module.
      */
-    public final void setBase (JhoveBase je)
+    public final void setBase (IJhoveBase je)
     {
         _je = je;
     }

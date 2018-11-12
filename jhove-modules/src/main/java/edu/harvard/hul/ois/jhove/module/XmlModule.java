@@ -1025,7 +1025,7 @@ public class XmlModule
         info.setModule (this);
         String sigStr = "<?xml";
         int sigidx = 0;
-        JhoveBase jb = getBase();
+        IJhoveBase jb = getBase();
         int sigBytes = jb.getSigBytes();
         DataInputStream dstream = new DataInputStream (stream);
         int charsRead = 0;

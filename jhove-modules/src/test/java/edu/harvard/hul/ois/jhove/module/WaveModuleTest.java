@@ -7,13 +7,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import edu.harvard.hul.ois.jhove.IRepInfo;
+import edu.harvard.hul.ois.jhove.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import edu.harvard.hul.ois.jhove.JhoveBase;
-import edu.harvard.hul.ois.jhove.Message;
-import edu.harvard.hul.ois.jhove.RepInfo;
 
 public class WaveModuleTest {
 
@@ -22,7 +18,7 @@ public class WaveModuleTest {
 	@Before
 	public void setUp() throws Exception {
 		module = new WaveModule();
-		JhoveBase je = new JhoveBase();
+		IJhoveBase je = new JhoveBase();
 		module.setBase(je);
 	}
 

@@ -2,6 +2,7 @@ package edu.harvard.hul.ois.jhove.module.pdf;
 
 import java.net.URISyntaxException;
 
+import edu.harvard.hul.ois.jhove.IJhoveBase;
 import edu.harvard.hul.ois.jhove.IRepInfo;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class HeaderTests {
 	@Before
 	public void setUp() throws Exception {
 		this.module = new PdfModule();
-		JhoveBase je = new JhoveBase();
+		IJhoveBase je = new JhoveBase();
 		this.module.setBase(je);
 	}
 

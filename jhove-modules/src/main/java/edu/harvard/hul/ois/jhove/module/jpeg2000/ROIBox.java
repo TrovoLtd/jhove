@@ -44,7 +44,7 @@ public class ROIBox extends JP2Box {
         int nroi = ModuleBase.readUnsignedByte (_dstrm, _module);
         
         List propList = new ArrayList (nroi);
-        JhoveBase je = _module.getBase ();
+        IJhoveBase je = _module.getBase ();
         boolean raw = je.getShowRawFlag ();
         for (int i = 0; i < nroi; i++) {
             List roiPropList = new ArrayList (7);

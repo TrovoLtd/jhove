@@ -58,7 +58,7 @@ public class ViewHandler extends HandlerBase {
      *  @param   jhwin   The JhoveWindow which acts as the parent to
      *                   output windows.
      */
-    public ViewHandler (JhoveWindow jhwin, App app, JhoveBase base)
+    public ViewHandler (JhoveWindow jhwin, App app, IJhoveBase base)
     {
         super (NAME, RELEASE, DATE, NOTE, RIGHTS);
         _app = app;

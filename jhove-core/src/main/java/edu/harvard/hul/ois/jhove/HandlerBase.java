@@ -50,7 +50,7 @@ public abstract class HandlerBase
     /**  The application object */
     protected App _app;
     /**  The Jhove engine */
-    protected JhoveBase _base;
+    protected IJhoveBase _base;
     /**  Handler last modification date */
     protected Date _date;
     /**  Character encoding for writer */
@@ -60,7 +60,7 @@ public abstract class HandlerBase
     /** List of default parameters. */
     protected List<String> _defaultParams;
     /**  JHOVE engine. */
-    protected JhoveBase _je;
+    protected IJhoveBase _je;
     /**  Indentation level */
     protected int _level;
     /**  Handler name */
@@ -284,7 +284,7 @@ public abstract class HandlerBase
     /**
      *  Assigns the JHOVE engine object to provide services to this handler
      */
-    public final void setBase (JhoveBase je)
+    public final void setBase (IJhoveBase je)
     {
         _je = je;
     }

@@ -23,10 +23,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.harvard.hul.ois.jhove.App;
-import edu.harvard.hul.ois.jhove.JhoveBase;
-import edu.harvard.hul.ois.jhove.Module;
-import edu.harvard.hul.ois.jhove.OutputHandler;
+import edu.harvard.hul.ois.jhove.*;
 
 public class Jhove
 {
@@ -243,7 +240,7 @@ public class Jhove
                 list.add (filename.toString ());
     	    }
     
-            JhoveBase je = new JhoveBase ();
+            IJhoveBase je = new JhoveBase ();
             // Only set the log level if a param value was assigned
             if (logLevel != null) {
                 je.setLogLevel (logLevel);

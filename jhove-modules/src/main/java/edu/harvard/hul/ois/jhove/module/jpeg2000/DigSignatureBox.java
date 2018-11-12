@@ -47,7 +47,7 @@ public class DigSignatureBox extends JP2Box {
         // subbox?
         
         List<Property> propList = new ArrayList<Property> (10);
-        JhoveBase je = _module.getBase ();
+        IJhoveBase je = _module.getBase ();
         boolean raw = je.getShowRawFlag ();
         int styp = ModuleBase.readUnsignedByte (_dstrm, _module);
         if (styp > 5) {

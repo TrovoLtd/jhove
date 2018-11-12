@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import edu.harvard.hul.ois.jhove.App;
+import edu.harvard.hul.ois.jhove.IJhoveBase;
 import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.JhoveException;
 import edu.harvard.hul.ois.jhove.viewer.JhoveWindow;
@@ -139,7 +140,7 @@ public class JhoveView
              * Initialize the JHOVE engine.
              **********************************************************/
     
-            JhoveBase je = new JhoveBase ();
+            IJhoveBase je = new JhoveBase ();
             try {
                 je.init (configFile, saxClass);
             }

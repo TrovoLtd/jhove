@@ -130,7 +130,7 @@ public interface OutputHandler
     /**
      *  Assigns the JHOVE engine object to provide services to this handler
      */
-    public void setBase (JhoveBase je);
+    public void setBase (IJhoveBase je);
 
     /**
      *  Assigns the encoding to be used by this OutputHandler

@@ -45,7 +45,7 @@ public class ViewWindow extends InfoWindow {
      *  @param base   The JhoveBase object for the application.
      *  @param jhwin  The main JhoveWindow.
      */  
-    public ViewWindow (App app, JhoveBase base, JhoveWindow jhwin) 
+    public ViewWindow (App app, IJhoveBase base, JhoveWindow jhwin)
     {
         // Give the window a temporary title.  The title should probably
         // be changed to the top-level directory, or else should be
@@ -109,7 +109,7 @@ public class ViewWindow extends InfoWindow {
      *  tree.  The RepInfo object is saved into a list so that 
      *  the window contents can be saved to a file later.
      */
-    public void addRepInfo (IRepInfo info, App app, JhoveBase base)
+    public void addRepInfo (IRepInfo info, App app, IJhoveBase base)
     {
         _info.add (info);
         RepTreeRoot node = new RepTreeRoot (info, app, base);

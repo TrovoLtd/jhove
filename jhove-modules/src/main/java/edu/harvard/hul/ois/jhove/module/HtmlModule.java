@@ -565,7 +565,7 @@ public class HtmlModule extends ModuleBase {
         sigtext[1] = "<HTML".toCharArray();
         sigtext[2] = "<TITLE".toCharArray();
         int[] sigstate = { 0, 0, 0 };
-        JhoveBase jb = getBase();
+        IJhoveBase jb = getBase();
         int sigBytes = jb.getSigBytes();
         int bytesRead = 0;
         boolean eof = false;

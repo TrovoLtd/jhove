@@ -24,7 +24,7 @@ public class RepTreeRoot extends DefaultMutableTreeNode
     private IRepInfo _info;
     private Property _repProp;
     private App _app;
-    private JhoveBase _base;
+    private IJhoveBase _base;
     private boolean _rawOutput;
     private DateFormat _dateFmt;
 
@@ -37,7 +37,7 @@ public class RepTreeRoot extends DefaultMutableTreeNode
      *               be displayed.
      *  @param app   The App object under which we're operating.
      */
-    public RepTreeRoot (IRepInfo info, App app, JhoveBase base)
+    public RepTreeRoot (IRepInfo info, App app, IJhoveBase base)
     {
         super (info.getUri());
         _info = info;
